@@ -1,0 +1,616 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* @model IEnumerable<WebToYen.Models.Product> *@
+
+    <!-- start banner section -->
+    <section id="banner">
+      <div class="row">
+        <div
+          id="myCarousel"
+          class="carousel slide mb-6"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a class="d-block w-100" href="#">
+                <picture class="full-image">
+                  <img
+                    class="dt-width-100 ls-is-cached lazyloaded"
+                    width="1920"
+                    height="600"
+                    src="/image/anh-main1.webp"
+                    alt=""
+                  />
+                </picture>
+              </a>
+
+              <div class="container">
+                <div class="carousel-caption text-start"></div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a class="d-block w-100" href="#">
+                <picture class="full-image">
+                  <img
+                    class="dt-width-100 ls-is-cached lazyloaded"
+                    width="1920"
+                    height="600"
+                    src="/image/anh-main2.webp"
+                    alt=""
+                  />
+                </picture>
+              </a>
+
+              <div class="container">
+                <div class="carousel-caption"></div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a class="d-block w-100" href="#">
+                <picture class="full-image">
+                  <img
+                    class="dt-width-100 ls-is-cached lazyloaded"
+                    width="1920"
+                    height="600"
+                    src="/image/anh-main3.jpg"
+                    alt=""
+                  />
+                </picture>
+              </a>
+
+              <div class="container">
+                <div class="carousel-caption text-end"></div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a class="d-block w-100" href="#">
+                <picture class="full-image">
+                  <img
+                    class="dt-width-100 ls-is-cached lazyloaded"
+                    width="1920"
+                    height="600"
+                    src="/image/anh-main4.webp"
+                    alt=""
+                  />
+                </picture>
+              </a>
+
+              <div class="container">
+                <div class="carousel-caption text-end"></div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#myCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"> </span>
+            <span class="visually-hidden">Previous </span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#myCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"> </span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- end banner section -->
+
+    <!-- start best seller section -->
+    <section id="bestsellect">
+      <div class="container">
+        <div class="best-head mt-4">
+          <div class="row best-head-title">
+            <div class="best-head-text">
+              <h2 class="best-head-text-h2 col-12 col-sm-12 col-lg-12">
+                <span> Sản phẩm nổi bật </span>
+              </h2>
+            </div>
+          </div>
+
+          <div class="row row-0">
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 mt-2">
+              <div class="best-head-product text-center d-block">
+                <a class="item" href="">
+                  <img
+                    class="best-img"
+                    src="./image/yen-chung-san.webp"
+                    alt=""
+                  />
+                  <span> Yến Chưng Sẵn </span>
+                </a>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 mt-2">
+              <div class="best-head-product text-center d-block">
+                <a class="item" href="">
+                  <img class="best-img" src="/image/yen-kho.webp" alt="" />
+                  <span> Yến Khô </span>
+                </a>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 mt-2">
+              <div class="best-head-product text-center d-block">
+                <a class="item" href="">
+                  <img
+                    class="best-img"
+                    src="/image/yen-chung-tuoi.webp"
+                    alt=""
+                  />
+                  <span> Yến Chưng Tươi </span>
+                </a>
+              </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 mt-2">
+              <div class="best-head-product text-center d-block">
+                <a class="item" href="">
+                  <img
+                    class="best-img"
+                    src="/image/set-qua-cao-cap1.webp"
+                    alt=""
+                  />
+                  <span> Set quà cao cấp </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>-
+      </div>
+    </section>
+    <!-- end best seller section -->
+
+    <!-- start container section -->
+
+    <section class="space"></section>
+
+     @await Component.InvokeAsync("SalePartialProducts");
+
+    <section class="space"></section>
+
+@await Component.InvokeAsync("SetQuaBieu")
+
+<section class="space"></section>
+
+
+@await Component.InvokeAsync("YenChungTuoi")
+
+    <section class="space"></section>
+
+@await Component.InvokeAsync("YenBien")
+
+    <section class="space"></section>
+
+@await Component.InvokeAsync("YenDao")
+
+    <section class="space"></section>
+
+@await Component.InvokeAsync("SanPhamKhac")
+
+    <section class="space"></section>
+    <section class="container-tab-news">
+      <div class="container">
+        <div class="cover">
+          <div class="home-cover">
+            <div class="row heading">
+              <div class="heading-left col-12 col-lg-4">
+                <h2 class="heading-left-title">
+                  <span>Tin tức mới nhất</span>
+                </h2>
+              </div>
+              <div class="heading-right col-12 col-lg-8">
+                <div class="heading-right-btn text-center">
+                  <button class="hd-right-btn active" id="hd-btn-1">
+                    Bán Chạy
+                  </button>
+                </div>
+                <a href="" class="heading-right-a"> Xem tất cả </a>
+              </div>
+            </div>
+
+            <div class="home-tab-product">
+              <div class="htp-content">
+                <div class="htp-content-list">
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-12">
+                      <div id="tab-best-seller" class="htp-tab-content">
+                        <div class="cn-home-content">
+                          <button
+                            class="cn-home-btn arrow-left"
+                            onclick="prevSlideContainerNews()"
+                          >
+                            <i class="cn-home-top-icon bi bi-chevron-left"></i>
+                          </button>
+                          <button
+                            class="cn-home-btn arrow-right"
+                            onclick="nextSlideContainerNews()"
+                          >
+                            <i class="cn-home-top-icon bi bi-chevron-right"></i>
+                          </button>
+
+                          <div
+                            id="containerProductNews"
+                            class="container-news d-flex"
+                          >
+                            <div class="container-home-pdt-news">
+                              <div class="cn-top-pdt-card">
+                                <a class="cn-top-pdt-card-img" href="">
+                                  <img src="/image/product-news.webp" alt="" />
+
+                                  <div class="img-overlay"></div>
+                                </a>
+                              </div>
+                              <div class="article-info">
+                                <h3 class="article-info-h">
+                                  <a href="" class="article-info-title">
+                                    KHÁM PHÁ CÔNG NGHỆ CHƯNG HẤP TỔ YẾN SIÊU
+                                    VIỆT
+                                  </a>
+                                </h3>
+                                <div class="article-info-user d-flex">
+                                  <p class="article-name-day">
+                                    <span class="article-name mr-3">
+                                      <i class="bi bi-person"></i>
+                                      NGUYỄN NHƯ HOÀNG HUY
+                                    </span>
+                                    <span class="article-day">
+                                      <i class="bi bi-calendar4"></i>
+                                      30/6/2023
+                                    </span>
+                                  </p>
+                                </div>
+                                <div class="article-desc">
+                                  <p class="article-desc-text">
+                                    CiCi Thượng Đỉnh Yến là thương hiệu yến sào
+                                    nổi tiếng toàn quốc với 8 năm hành trình
+                                    “trao niềm vui sống” bằng những món ăn bổ
+                                    dưỡng đến từ t...
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="container-home-pdt-news">
+                              <div class="cn-top-pdt-card">
+                                <a class="cn-top-pdt-card-img" href="">
+                                  <img src="/image/product-news.webp" alt="" />
+
+                                  <div class="img-overlay"></div>
+                                </a>
+                              </div>
+                              <div class="article-info">
+                                <h3 class="article-info-h">
+                                  <a href="" class="article-info-title">
+                                    KHÁM PHÁ CÔNG NGHỆ CHƯNG HẤP TỔ YẾN SIÊU
+                                    VIỆT
+                                  </a>
+                                </h3>
+                                <div class="article-info-user d-flex">
+                                  <p class="article-name-day">
+                                    <span class="article-name mr-3">
+                                      <i class="bi bi-person"></i>
+                                      NGUYỄN NHƯ HOÀNG HUY
+                                    </span>
+                                    <span class="article-day">
+                                      <i class="bi bi-calendar4"></i>
+                                      30/6/2023
+                                    </span>
+                                  </p>
+                                </div>
+                                <div class="article-desc">
+                                  <p class="article-desc-text">
+                                    CiCi Thượng Đỉnh Yến là thương hiệu yến sào
+                                    nổi tiếng toàn quốc với 8 năm hành trình
+                                    “trao niềm vui sống” bằng những món ăn bổ
+                                    dưỡng đến từ t...
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="container-home-pdt-news">
+                              <div class="cn-top-pdt-card">
+                                <a class="cn-top-pdt-card-img" href="">
+                                  <img src="/image/product-news.webp" alt="" />
+
+                                  <div class="img-overlay"></div>
+                                </a>
+                              </div>
+                              <div class="article-info">
+                                <h3 class="article-info-h">
+                                  <a href="" class="article-info-title">
+                                    KHÁM PHÁ CÔNG NGHỆ CHƯNG HẤP TỔ YẾN SIÊU
+                                    VIỆT
+                                  </a>
+                                </h3>
+                                <div class="article-info-user d-flex">
+                                  <p class="article-name-day">
+                                    <span class="article-name mr-3">
+                                      <i class="bi bi-person"></i>
+                                      NGUYỄN NHƯ HOÀNG HUY
+                                    </span>
+                                    <span class="article-day">
+                                      <i class="bi bi-calendar4"></i>
+                                      30/6/2023
+                                    </span>
+                                  </p>
+                                </div>
+                                <div class="article-desc">
+                                  <p class="article-desc-text">
+                                    CiCi Thượng Đỉnh Yến là thương hiệu yến sào
+                                    nổi tiếng toàn quốc với 8 năm hành trình
+                                    “trao niềm vui sống” bằng những món ăn bổ
+                                    dưỡng đến từ t...
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="container-home-pdt-news">
+                              <div class="cn-top-pdt-card">
+                                <a class="cn-top-pdt-card-img" href="">
+                                  <img src="/image/product-news.webp" alt="" />
+
+                                  <div class="img-overlay"></div>
+                                </a>
+                              </div>
+                              <div class="article-info">
+                                <h3 class="article-info-h">
+                                  <a href="" class="article-info-title">
+                                    KHÁM PHÁ CÔNG NGHỆ CHƯNG HẤP TỔ YẾN SIÊU
+                                    VIỆT
+                                  </a>
+                                </h3>
+                                <div class="article-info-user d-flex">
+                                  <p class="article-name-day">
+                                    <span class="article-name mr-3">
+                                      <i class="bi bi-person"></i>
+                                      NGUYỄN NHƯ HOÀNG HUY
+                                    </span>
+                                    <span class="article-day">
+                                      <i class="bi bi-calendar4"></i>
+                                      30/6/2023
+                                    </span>
+                                  </p>
+                                </div>
+                                <div class="article-desc">
+                                  <p class="article-desc-text">
+                                    CiCi Thượng Đỉnh Yến là thương hiệu yến sào
+                                    nổi tiếng toàn quốc với 8 năm hành trình
+                                    “trao niềm vui sống” bằng những món ăn bổ
+                                    dưỡng đến từ t...
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space"></section>
+
+    <section class="container-policy">
+      <div class="container">
+        <div class="cover">
+          <div class="home-cover">
+            <div class="row">
+              <div class="col-6 col-sm-6 col-lg-3">
+                <div class="policy-item text-center">
+                  <div class="policy-item-img">
+                    <img
+                      src="/image/policy-img.png"
+                      alt="Yến đảo thiên nhiên 100%"
+                      class="policy-img"
+                      width="480"
+                      height="480"
+                    />
+                  </div>
+                  <div class="policy-text">
+                    <span class="policy-title"> Yến đảo thiên nhiên 100% </span>
+                    <span class="policy-desc">
+                      Tổ yến được lấy từ yến đảo thiên nhiên với dòng yến cực kỳ
+                      quý hiếm trên thị trường.
+                      <br />
+                      Mang lại giá trị dinh dưỡng cao nhất.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 col-sm-6 col-lg-3">
+                <div class="policy-item text-center">
+                  <div class="policy-item-img">
+                    <img
+                      src="/image/policy-img.png"
+                      alt="Yến đảo thiên nhiên 100%"
+                      class="policy-img"
+                      width="480"
+                      height="480"
+                    />
+                  </div>
+                  <div class="policy-text">
+                    <span class="policy-title"> Yến đảo thiên nhiên 100% </span>
+                    <span class="policy-desc">
+                      Tổ yến được lấy từ yến đảo thiên nhiên với dòng yến cực kỳ
+                      quý hiếm trên thị trường.
+                      <br />
+                      Mang lại giá trị dinh dưỡng cao nhất.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 col-sm-6 col-lg-3">
+                <div class="policy-item text-center">
+                  <div class="policy-item-img">
+                    <img
+                      src="/image/policy-img.png"
+                      alt="Yến đảo thiên nhiên 100%"
+                      class="policy-img"
+                      width="480"
+                      height="480"
+                    />
+                  </div>
+                  <div class="policy-text">
+                    <span class="policy-title"> Yến đảo thiên nhiên 100% </span>
+                    <span class="policy-desc">
+                      Tổ yến được lấy từ yến đảo thiên nhiên với dòng yến cực kỳ
+                      quý hiếm trên thị trường.
+                      <br />
+                      Mang lại giá trị dinh dưỡng cao nhất.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 col-sm-6 col-lg-3">
+                <div class="policy-item text-center">
+                  <div class="policy-item-img">
+                    <img
+                      src="/image/policy-img.png"
+                      alt="Yến đảo thiên nhiên 100%"
+                      class="policy-img"
+                      width="480"
+                      height="480"
+                    />
+                  </div>
+                  <div class="policy-text">
+                    <span class="policy-title"> Yến đảo thiên nhiên 100% </span>
+                    <span class="policy-desc">
+                      Tổ yến được lấy từ yến đảo thiên nhiên với dòng yến cực kỳ
+                      quý hiếm trên thị trường.
+                      <br />
+                      Mang lại giá trị dinh dưỡng cao nhất.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space"></section>
+    <section class="space"></section>
+
+    <section class="container-brand">
+      <div class="container">
+        <div class="cover">
+          <div class="home-cover">
+            <div class="container-heading row">
+              <div class="nav-left col-12 col-lg-12">
+                <h2 class="section-title">
+                  <span> Khách Hàng Nổi Bật </span>
+                </h2>
+              </div>
+            </div>
+            <div class="container-client row">
+              <div class="container-client-list col-6 col-sm-6 col-lg-3">
+                <div class="containet-client-cover">
+                  <a href="" class="container-client-link">
+                    <img
+                      src="/image/ntk-lth.jpg"
+                      alt=""
+                      class="container-client-img"
+                    />
+                  </a>
+                  <div class="container-client-text text-center">
+                    Nhà Thiết Kế Lê Thanh Hoa
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-client-list col-6 col-sm-6 col-lg-3">
+                <div class="containet-client-cover">
+                  <a href="" class="container-client-link">
+                    <img
+                      src="/image/ntk-lth.jpg"
+                      alt=""
+                      class="container-client-img"
+                    />
+                  </a>
+                  <div class="container-client-text text-center">
+                    Nhà Thiết Kế Lê Thanh Hoa
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-client-list col-6 col-sm-6 col-lg-3">
+                <div class="containet-client-cover">
+                  <a href="" class="container-client-link">
+                    <img
+                      src="/image/ntk-lth.jpg"
+                      alt=""
+                      class="container-client-img"
+                    />
+                  </a>
+                  <div class="container-client-text text-center">
+                    Nhà Thiết Kế Lê Thanh Hoa
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-client-list col-6 col-sm-6 col-lg-3">
+                <div class="containet-client-cover">
+                  <a href="" class="container-client-link">
+                    <img
+                      src="/image/ntk-lth.jpg"
+                      alt=""
+                      class="container-client-img"
+                    />
+                  </a>
+                  <div class="container-client-text text-center">
+                    Nhà Thiết Kế Lê Thanh Hoa
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space"></section>
+
+    <!-- end container section -->
+@if (TempData["AddedToCart"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("modalAddComplete");
+            if (modal) {
+                modal.classList.add("show");
+
+                const closeBtn = document.getElementById("modalAddComplete-close");
+                closeBtn?.addEventListener("click", function () {
+                    modal.classList.remove("show");
+                });
+
+                window.addEventListener("click", function (event) {
+                    if (event.target === modal) {
+                        modal.classList.remove("show");
+                    }
+                });
+            }
+        });
+    </script>
+}
+

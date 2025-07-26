@@ -1,0 +1,95 @@
+﻿@model WebToYen.Models.CartViewModel
+
+<div class="header-shop">
+
+    @if (Model.CartItems != null && Model.CartItems.Any())
+    {
+        <!-- Có sản phẩm, click chỉ mở mini cart, không chuyển trang -->
+        <a href="javascript:void(0);" class="d-flex header-shop-toggle">
+            <div class="header-shop-icon"><i class="bi bi-cart3"></i></div>
+            <div class="header-shop-text d-none d-lg-block">
+                <span>Giỏ hàng</span><span class="header-shop-text-span">của bạn</span>
+            </div>
+            <span class="header-shop-order">
+                <span class="header-shop-order-number">@Model.CartItems.Sum(i => i.Quantity)</span>
+            </span>
+        </a>
+
+        <div class="header-action-dropdown" style="display:none;">
+            <!-- Nội dung mini cart -->
+            <div class="header-action-content">
+                <div class="hd-action-cart-view">
+                    <div class="hd-action-view-scroll">
+                        <table id="cart-view">
+                            <tbody>
+                                @foreach (var item in Model.CartItems)
+                                {
+                                    <tr class="item">
+                                        <td class="img">
+                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
+                                                <img src="~/image/@item.ProductImage" alt="@item.ProductName" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <p class="cart-pro-title">@item.ProductName</p>
+                                            <div class="cart-pro-quantity">
+                                                <span class="qty-value">@item.Quantity</span>
+                                                <span class="pro-price-view">@item.TotalPrice.ToString("N0") đ</span>
+                                            </div>
+                                            <div class="remove-link">
+                                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId">
+                                                    <i class="bi bi-x"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-view-total">
+                        <table class="table-total">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">TỔNG TIỀN:</td>
+                                    <td class="text-right">@Model.Total.ToString("N0") đ</td>
+                                </tr>
+                                <tr>
+                                    <td><a asp-controller="Cart" asp-action="Index" class="linktocart">Xem giỏ hàng</a></td>
+                                    <td><a asp-controller="Checkout" asp-action="Index" class="linktocheckout">Thanh toán</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // JS đơn giản để toggle dropdown mini cart
+            document.querySelector('.header-shop-toggle').addEventListener('click', function(e){
+                e.preventDefault();
+                var dropdown = document.querySelector('.header-action-dropdown');
+                if(dropdown.style.display === 'none' || dropdown.style.display === ''){
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+        </script>
+    }
+    else
+    {
+        <!-- Không có sản phẩm, click sẽ chuyển đến trang Cart/Index -->
+        <a href="@Url.Action("Index", "Cart")" class="d-flex">
+            <div class="header-shop-icon"><i class="bi bi-cart3"></i></div>
+            <div class="header-shop-text d-none d-lg-block">
+                <span>Giỏ hàng</span><span class="header-shop-text-span">của bạn</span>
+            </div>
+            <span class="header-shop-order">
+                <span class="header-shop-order-number">0</span>
+            </span>
+        </a>
+    }
+
+</div>

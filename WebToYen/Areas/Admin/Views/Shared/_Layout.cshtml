@@ -1,0 +1,64 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["title"] = Product</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.3.6-dist/css/bootstrap.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/resposive.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/to-yen.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+    <link href="~/css/cart.css" rel="stylesheet" />
+    <link href="~/ckeditor/skins/moono-lisa/editor.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- ✅ Gắn _Header.cshtml tại đây -->
+    @Html.Partial("_Header")
+
+            @RenderBody()
+
+
+
+
+
+
+
+
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/js/search.js"></script>
+    <script src="~/bootstrap-5.3.6-dist/js/bootstrap.js"></script>
+    <script src="~/js/time.js"></script>
+    <script src="~/js/containerProduct.js"></script>
+    <script src="~/js/collection.js"></script>
+    <script src="~/js/product-top.js"></script>
+    <script src="~/js/order.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        const btn = document.querySelector(".header-btn-categorie");
+        const list = document.getElementById("dropdownList");
+
+        btn.addEventListener("click", function () {
+          list.classList.toggle("show");
+        });
+        document.addEventListener("click", function (e) {
+          if (!btn.contains(e.target) && !list.contains(e.target)) {
+            list.classList.remove("show");
+          }
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+

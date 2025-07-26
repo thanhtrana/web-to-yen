@@ -1,0 +1,108 @@
+﻿@model WebToYen.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label>Tên sản phẩm</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Mô tả ngắn</label>
+        <input asp-for="ShortDescription" class="form-control" />
+        <span asp-validation-for="ShortDescription" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Mô tả chi tiết</label>
+<textarea asp-for="Description" id="Description" class="form-control"></textarea>
+
+        <span asp-validation-for="Description" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Giá</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Giá khuyến mãi</label>
+        <input asp-for="DiscountPrice" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Kho</label>
+        <input asp-for="Stock" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Ảnh sản phẩm</label>
+        <input name="ImageUploads" class="form-control" type="file" multiple onchange="previewImages(this)" />
+        <div id="preview-container" class="mt-2 d-flex flex-wrap gap-2"></div>
+        <span class="text-danger"></span>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <label>Danh mục</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+            <option value="">-- Chọn danh mục --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Tạo mới</button>
+</form>
+
+<h3><a asp-action="Index" asp-controller="Product">back To List Product</a></h3>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("Description");
+
+        function previewImages(input) {
+            const container = document.getElementById("preview-container");
+            container.innerHTML = "";
+
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        const img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.style.height = "100px";
+                        img.style.marginRight = "10px";
+                        img.style.border = "1px solid #ccc";
+                        img.style.padding = "2px";
+                        img.style.borderRadius = "4px";
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebToYen.Models.Category>
+
+<li class="hd-nv-down">
+    <a href="#">
+        Sản Phẩm
+        <i class="hd-icon-show bi bi-chevron-down"></i>
+        <i class="hd-icon-none bi bi-chevron-up"></i>
+    </a>
+    <ul class="hd-navbar-ctg-ul">
+        @foreach (var item in Model)
+        {
+            if (item.SubCategories != null && item.SubCategories.Any())
+            {
+                <li class="hd-navbar-ctg-class">
+                    <a asp-action="Category" asp-controller="Product" asp-route-id="@item.CategoryId">
+                        @item.Name
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                    <ul class="hd-navbar-ctg-ul-list">
+                        @foreach (var sub in item.SubCategories)
+                        {
+                            <li>
+                                <a asp-action="Category" asp-controller="Product" asp-route-id="@sub.CategoryId">
+                                    @sub.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a asp-action="Category" asp-controller="Product" asp-route-id="@item.CategoryId">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</li>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebToYen.Models.Product>
+
+
+
+
+<section class="container-sale">
+    <div class="container-home-top mt-4">
+        <div class="container">
+            <div class="home-top-product">
+                <div class="home-top-time">
+                    <div class="row row-0">
+                        <div class="col-12 col-sm-12 col-lg-7 text-left">
+                            <div class="d-flex align-items-center">
+                                <div class="home-top-time-title">
+                                    <img src="/image/anh-sale.webp"
+                                         alt=""
+                                         class="dt-width-auto" />
+                                </div>
+                                <div class="home-top-time-sale">
+                                    <div id="countdown">
+                                        <span id="days" class="home-top-time-tm">00</span>
+                                        <span class="home-top-time-sale-text">ngày</span>
+                                        <span id="hours" class="home-top-time-tm">00</span>
+                                        <span class="home-top-time-sale-text">giờ</span>
+                                        <span id="minutes" class="home-top-time-tm">00</span>
+                                        <span class="home-top-time-sale-text">phút</span>
+                                        <span id="seconds" class="home-top-time-tm">00</span>
+                                        <span class="home-top-time-sale-text">giây</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-lg-5 text-right section-top-hd-url">
+                            <span class="section-header-url">
+                                <a asp-action="All" asp-controller="Product"> Xem tất cả </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-12">
+                        <div class="cn-home-top-pdt">
+                            <button class="arrow-btn arrow-left" onclick="prevSlide()">
+                                <i class="cn-home-top-icon bi bi-chevron-left"></i>
+                            </button>
+                            <button class="arrow-btn arrow-right" onclick="nextSlide()">
+                                <i class="cn-home-top-icon bi bi-chevron-right"></i>
+                            </button>
+
+                            <div id="productTrack" class="cn-home-top-pdt-track d-flex">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="cn-home-top-pdt-card">
+                                        <div class="cn-top-pdt-card">
+                                            <a class="cn-top-pdt-card-img" asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId">
+                                                <img src="@Url.Content("~/media/products/" + item.ProductImages.FirstOrDefault(p => p.IsPrimary)?.ImageUrl)" alt="@item.Name" />
+                                                <div class="img-overlay"></div>
+                                            </a>
+                                        </div>
+                                        <div class="cn-top-pdt-text">
+                                            <h3 class="cn-top-pdt-h">
+                                                <a class="cn-top-pdt-name">@item.Name</a>
+                                            </h3>
+                                            <div class="cn-top-pdt-star">
+                                                <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                            </div>
+                                            <div class="cn-top-pdt-price">
+                                                <p class="pdt-price">
+                                                    <span class="span-price text-danger fw-bold">@item.DiscountPrice?.ToString("N0") đ</span>
+                                                    <span class="text-decoration-line-through text-muted ms-2">@item.Price.ToString("N0") đ</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

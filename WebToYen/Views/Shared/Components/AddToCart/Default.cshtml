@@ -1,0 +1,123 @@
+﻿@model WebToYen.Models.CartViewModel
+
+<div id="modalAddComplete" class="d-block">
+    <div class="modalAddComplete-content">
+        <span id="modalAddComplete-close">
+            <i class="bi bi-x"></i>
+        </span>
+        <div class="modalAddComplete-body">
+            <div class="modal-cart-status">
+                <h2>
+                    Giỏ hàng hiện có (<span class="count">@Model.Count</span>) sản phẩm
+                </h2>
+            </div>
+            <form action="/Cart/Index" method="post" class="cart">
+                <div class="modal-main-cart">
+                    <div class="modal-pro-cart d-md-block d-sm-none d-none">
+                        <table class="cart-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Sản Phẩm</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Số Lượng</th>
+                                    <th>Thành Tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CartItems)
+                                {
+                                    <tr>
+                                        <td class="product-img">
+                                            <a href="#">
+                                                <img src="~/image/@item.ProductImage" alt="@item.ProductName">
+                                            </a>
+                                        </td>
+                                        <td class="product-title">
+                                            <a href="#">@item.ProductName</a>
+                                            <small class="product-variant">Phiên bản: Nguyên bản 4 (Nguyên)</small>
+                                            <p class="product-vendor">
+                                                Thương hiệu: CiCi Thượng Đỉnh Yến
+                                            </p>
+                                        </td>
+                                        <td class="product-price">
+                                            <span class="current-price">@item.UnitPrice.ToString("N0") đ</span>
+                                        </td>
+                                        <td class="product-action">
+                                            <div class="d-flex align-items-center">
+                                                <span class="quantity-num">@item.Quantity</span>
+                                            </div>
+                                        </td>
+                                        <td class="product-money">@item.TotalPrice.ToString("N0") đ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mobile-modal-pro d-md-none">
+                        <ul class="no-bullets">
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <li class="cart-item">
+                                    <div class="row">
+                                        <div class="col-5 col-md-4">
+                                            <div class="cart-item-img">
+                                                <a href="#">
+                                                    <img src="~/image/@item.ProductImage" alt="@item.ProductName">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-md-8">
+                                            <div class="cart-item-info">
+                                                <div class="cart-item-title">
+                                                    <a href="#">@item.ProductName</a>
+                                                    <small class="product-variant">Phiên bản: Nguyên bản 4 (Nguyên)</small>
+                                                    <p class="product-vendor">
+                                                        Thương hiệu: CiCi Thượng Đỉnh Yến
+                                                    </p>
+                                                </div>
+                                                <div class="cart-item-price">
+                                                    <span class="current-price">@item.UnitPrice.ToString("N0") đ</span>
+                                                </div>
+                                                <div class="cart-item-actions">
+                                                    Số lượng: @item.Quantity
+                                                    <a asp-action="Remove" asp-controller="Cart" asp-route-id="@item.ProductId" class="cart-remover">Xóa</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="modal-checkout-actions">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="modal-cart-status d-flex align-items-center justify-content-between">
+                                    <div class="modal-cart-checkout">
+                                        <div class="modal-cart-sum">
+                                            <h3>
+                                                Tổng:
+                                                <span>@Model.Total.ToString("N0") đ</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a href="/Cart/Index" class="btn btnCart">
+                                            Giỏ hàng
+                                        </a>
+                                        <a href="/Checkout" class="btn btn-proCheckout">
+                                            Thanh toán
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

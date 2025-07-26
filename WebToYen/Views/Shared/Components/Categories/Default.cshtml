@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebToYen.Models.Category>
+
+@* danh muc san pham *@
+@foreach (var item in Model.Where(c => c.ParentId == null))
+{
+    <li>
+        <a asp-action="Category" asp-controller="Product" asp-route-id="@item.CategoryId">
+            <span class="icon">
+                <img src="@Url.Content("~/media/categories/" + item.Image)" alt="@item.Name" class="ls-is-cached" />
+
+            </span>
+            <span>@item.Name</span>
+            <i class="ti-angle-right"></i>
+        </a>
+    @if (item.SubCategories != null && item.SubCategories.Any())
+    {
+        <ul class="header-btn-bg-img header-btn-bg-hover"
+            style="--bg-sidebar: url('/image/bg-yen-tuoi.png')">
+                @foreach (var sub in item.SubCategories)
+            {
+                <li>
+                        <a asp-action="Category" asp-controller="Product" asp-route-id="@sub.CategoryId">@sub.Name</a>
+                </li>
+            }
+
+        </ul>
+    }
+    </li>
+}

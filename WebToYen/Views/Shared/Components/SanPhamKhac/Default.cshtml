@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebToYen.Models.Product>
+
+
+
+
+
+<section class="container-tab-product">
+    <div class="container">
+        <div class="cover">
+            <div class="home-cover">
+                <div class="row heading">
+                    <div class="heading-left col-12 col-lg-4">
+                        <h2 class="heading-left-title">
+                            <span>
+                                SANE PHẨM KHÁC
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="heading-right col-12 col-lg-8">
+                        <div class="heading-right-btn text-center">
+                            <button class="hd-right-btn active" id="hd-btn-1">
+                                Bán Chạy
+                            </button>
+                        </div>
+                        <a href="" class="heading-right-a"> Xem tất cả </a>
+                    </div>
+                </div>
+
+                <div class="home-tab-product">
+                    <div class="htp-content">
+                        <div class="htp-content-list">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-lg-12">
+                                    <div id="tab-best-seller" class="htp-tab-content">
+                                        <div class="cn-home-content">
+                                            <button class="cn-home-btn arrow-left"
+                                                    onclick="prevSlideContainerOther()">
+                                                <i class="cn-home-top-icon bi bi-chevron-left"></i>
+                                            </button>
+                                            <button class="cn-home-btn arrow-right"
+                                                    onclick="nextSlideContainerOther()">
+                                                <i class="cn-home-top-icon bi bi-chevron-right"></i>
+                                            </button>
+
+                                            <div id="containerProductOther"
+                                                 class="cn-home-pdt-track d-flex">
+                                                @foreach(var item in Model)
+                                                {
+                                                    
+                                                <div class="container-home-pdt-other">
+                                                    <div class="cn-top-pdt-card">
+                                                            <a class="cn-top-pdt-card-img" 
+                                                            asp-action="Details" asp-controller="product" asp-route-id="@item.ProductId">
+                                                                <img src="@Url.Content("~/media/products/" + item.ProductImages.FirstOrDefault(p => p.IsPrimary)?.ImageUrl)" alt="@item.Name" />
+
+                                                            <div class="img-overlay"></div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="cn-top-pdt-text">
+                                                        <h3 class="cn-top-pdt-h">
+                                                            <a href="" class="cn-top-pdt-name">
+                                                                    @item.Name
+                                                            </a>
+                                                        </h3>
+                                                        <div class="cn-top-pdt-star">
+                                                            <a class="pdt-star">
+                                                                <i class="bi bi-star"></i>
+                                                                <i class="bi bi-star"></i>
+                                                                <i class="bi bi-star"></i>
+                                                                <i class="bi bi-star"></i>
+                                                                <i class="bi bi-star"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="cn-top-pdt-price">
+                                                            <p class="pdt-price">
+                                                                    <span class="span-price"> @item.Price.ToString("N0") đ </span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="cn-top-pdt-buy">
+                                                                <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.ProductId">
+                                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                                        <span> Thêm vào giỏ </span>
+                                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                                            <i class="bi bi-cart3"></i>
+                                                                        </div>
+                                                                    </button>
+                                                                </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

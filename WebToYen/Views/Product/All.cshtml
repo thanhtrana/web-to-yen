@@ -1,0 +1,277 @@
+﻿@using X.PagedList
+@using WebToYen.Models
+@model IPagedList<Product>
+@{
+    string currentSort = ViewBag.CurrentSortOrder as string ?? "";
+}
+
+<section id="content" class="main-content">
+    <div class="container">
+        <div id="collection-body py-3">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <div class="row clt-flex-reverse">
+                        <div class="col-12 col-md-12 clt-mb">
+                            <div class="bg-white">
+                                <div class="wrap-cnt-title">
+                                    <div class="heading-clt">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 head-clt-title">
+                                                <h1 class="title">Tất cả sản phẩm</h1>
+                                            </div>
+                                            <div class="col-6 col-md-6 head-clt-filter">
+                                                <div class="filter-btn-wrap">
+                                                    <a href="" class="filter-link">
+                                                        <i class="bi bi-funnel"></i>
+                                                        Bộ Lọc
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Filters giữ nguyên -->
+                        <div class="col-12 col-md-12 clt-mb filter-wrap">
+                            <div class="sidebar-box">
+                                <div class="sidebar-module bg-white">
+                                    <div class="sidebar-filter">
+                                        <div class="layerted">
+                                            <div class="sidebar-block block-content">
+                                                <!-- Brand -->
+                                                <div class="sidebar-group">
+                                                    <div class="sidebar-subtitle">
+                                                        <span> Thương Hiệu </span>
+                                                        <span class="icon-control">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sidebar-content">
+                                                        <ul class="sidebar-ul">
+                                                            <li class="sidebar-ul-li">
+                                                                <span>CiCi Thượng Đỉnh Yến </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /Brand -->
+                                                <!-- Category -->
+                                                <!-- Category -->
+                                                <div class="sidebar-group">
+                                                    <div class="sidebar-subtitle">
+                                                        <span> Loại </span>
+                                                        <span class="icon-control">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sidebar-content">
+                                                        <ul class="sidebar-ul">
+                                                            @if (ViewBag.Categories != null)
+                                                            {
+                                                                foreach (var parent in ViewBag.Categories as List<WebToYen.Models.Category>)
+                                                                {
+                                                                    <li class="sidebar-ul-li">
+                                                                        <a href="@Url.Action("All", "Product", new { categoryId = parent.CategoryId })">
+                                                                            @parent.Name
+                                                                        </a>
+                                                                    </li>
+                                                                    @* ❌ Không hiển thị SubCategories *@
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- /Category -->
+                                                <!-- Price -->
+                                                <div class="sidebar-group">
+                                                    <div class="sidebar-subtitle">
+                                                        <span> Giá Sản Phẩm </span>
+                                                        <span class="icon-control">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sidebar-content">
+                                                        <ul class="sidebar-ul">
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Dưới 500,000đ </span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>500,000đ - 1,000,000đ</span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>1,000,000đ - 2,000,000đ</span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>2,000,000đ - 5,000,000đ</span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Trên 5,000,000đ</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /Price -->
+                                                <!-- Service -->
+                                                <div class="sidebar-group">
+                                                    <div class="sidebar-subtitle">
+                                                        <span> Dịch Vụ </span>
+                                                        <span class="icon-control">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sidebar-content">
+                                                        <ul class="sidebar-ul">
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Giao hàng 2h </span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>FreeShip</span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Sale Up 50%</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /Service -->
+                                                <!-- Delivery -->
+                                                <div class="sidebar-group">
+                                                    <div class="sidebar-subtitle">
+                                                        <span> Giao Hàng </span>
+                                                        <span class="icon-control">
+                                                            <i class="bi bi-chevron-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="sidebar-content">
+                                                        <ul class="sidebar-ul">
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Giao Nội Địa </span>
+                                                            </li>
+                                                            <li class="sidebar-ul-li">
+                                                                <span>Giao Quốc Tế</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /Delivery -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-12 mb-15">
+                            <div class="bg-white">
+                                <div class="d-block wrap-filter-custom">
+                                    <label class="lb-filter">Sắp xếp theo:</label>
+                                    <div class="filter-wrapp-2">
+                                        <div class="option browse-tags customcol_sort">
+                                            <a asp-action="All" asp-route-sortOrder="price-ascending" class="@(currentSort == "price-ascending" ? "active" : "")"><i></i> Giá: Tăng dần</a>
+                                            <a asp-action="All" asp-route-sortOrder="price-descending" class="@(currentSort == "price-descending" ? "active" : "")"><i></i> Giá: Giảm dần</a>
+                                            <a asp-action="All" asp-route-sortOrder="title-ascending" class="@(currentSort == "title-ascending" ? "active" : "")"><i></i> Tên: A-Z</a>
+                                            <a asp-action="All" asp-route-sortOrder="title-descending" class="@(currentSort == "title-descending" ? "active" : "")"><i></i> Tên: Z-A</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-12">
+                            <div class="bg-white">
+                                <div class="content-product">
+                                    <div class="content-product-list">
+                                        <div class="row d-flex ct-product-list">
+                                            @if (!Model.Any())
+                                            {
+                                                <p>Không có sản phẩm nào.</p>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in Model.Where(p => p.Stock > 0))
+                                                {
+                                                    <div class="col-6 col-md-4 col-lg-3" data-type="nuoc-yen">
+                                                        <div class="container-home-pdt-other">
+                                                            <div class="cn-top-pdt-card">
+                                                                <a class="cn-top-pdt-card-img" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
+                                                                    <img src="@Url.Content("~/media/products/" + item.ProductImages.FirstOrDefault(p => p.IsPrimary)?.ImageUrl)" alt="@item.Name" />
+                                                                    <div class="img-overlay"></div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="cn-top-pdt-text">
+                                                                <h3 class="cn-top-pdt-h">
+                                                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="cn-top-pdt-name">
+                                                                        @item.Name
+                                                                    </a>
+                                                                </h3>
+                                                                <div class="cn-top-pdt-star">
+                                                                    <a class="pdt-star">
+                                                                        <i class="bi bi-star"></i>
+                                                                        <i class="bi bi-star"></i>
+                                                                        <i class="bi bi-star"></i>
+                                                                        <i class="bi bi-star"></i>
+                                                                        <i class="bi bi-star"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="cn-top-pdt-price">
+                                                                    <p class="pdt-price">
+                                                                        <span class="span-price">@item.Price.ToString("N0") đ</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="cn-top-pdt-buy">
+                                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                                        <span> Thêm vào giỏ </span>
+                                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                                            <i class="bi bi-cart3"></i>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+
+                                        <!-- Pagination -->
+                                        @if (Model.PageCount > 1)
+                                        {
+                                            <nav class="mt-4 d-flex justify-content-center" aria-label="Page navigation">
+                                                <ul class="pagination">
+                                                    @if (Model.HasPreviousPage)
+                                                    {
+                                                        <li class="page-item">
+                                                            <a class="page-link" asp-action="All" asp-route-page="@(Model.PageNumber - 1)" asp-route-sortOrder="@currentSort">«</a>
+                                                        </li>
+                                                    }
+                                                    @for (int i = 1; i <= Model.PageCount; i++)
+                                                    {
+                                                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                                            <a class="page-link" asp-action="All" asp-route-page="@i" asp-route-sortOrder="@currentSort">@i</a>
+                                                        </li>
+                                                    }
+                                                    @if (Model.HasNextPage)
+                                                    {
+                                                        <li class="page-item">
+                                                            <a class="page-link" asp-action="All" asp-route-page="@(Model.PageNumber + 1)" asp-route-sortOrder="@currentSort">»</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </nav>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

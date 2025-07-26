@@ -1,0 +1,1495 @@
+﻿  @model WebToYen.Models.Product
+
+
+
+@* Mo ta san pham *@
+ <!-- start breadcrumb section -->
+<section id="breadcrumb">
+    <div class="breadcrumb-cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="bread-cover">
+                        <li class="bread-home" itemtype="./index.html">
+                            <a asp-action="Index" asp-controller="home">
+                                <span> Trang chủ </span>
+                            </a>
+                        </li>
+                        <li class="bread-name">
+                            <a href="">
+                                <span class="product-name"> Sản phẩm nổi bật </span>
+                            </a>
+                        </li>
+                        <li class="bread-name">
+                            <a href="">
+                                <span class="product-name">
+                                    @Model.Name
+                                </span>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="space"></section>
+<!-- end breadcrumb section -->
+<!-- start product section -->
+<section id="product" class="product">
+    <div class="product-detail-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 product-mb">
+                    <div class="bg-white">
+                        <div class="product-top">
+                            <div class="row product-top-title">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="product-top-title-h1">
+                                        <h1>
+                                            @Model.Name
+                                        </h1>
+                                    </div>
+                                    <div class="product-top-info">
+                                        <span class="product-type">
+                                            Thương hiệu :
+                                            <b class="color-primary"> CiCi Thượng Đình Yến </b>
+                                        </span>
+                                        <span class="product-status">
+                                            Tình trạng:
+                                            @if (Model.Stock > 0)
+                                            {
+                                                <b class="color-primary">Còn hàng</b>
+                                                <span> - Còn lại @Model.Stock sản phẩm</span>
+                                            }
+                                            else
+                                            {
+                                                <b class="text-danger">Hết hàng</b>
+                                            }
+                                        </span>
+
+
+                                        <span class="product-sold">
+                                            Đã bán :
+                                            <b class="color-primary"> 0 </b>
+                                            Sản phẩm.
+                                        </span>
+                                        <span class="starbaprv-widget">
+                                            <div class="starbap-prev-badge">
+                                                <a class="starbap-star star-off">
+                                                    <i class="bi bi-star"> </i>
+                                                </a>
+                                                <a class="starbap-star star-off">
+                                                    <i class="bi bi-star"> </i>
+                                                </a>
+                                                <a class="starbap-star star-off">
+                                                    <i class="bi bi-star"> </i>
+                                                </a>
+                                                <a class="starbap-star star-off">
+                                                    <i class="bi bi-star"> </i>
+                                                </a>
+                                                <a class="starbap-star star-off">
+                                                    <i class="bi bi-star"> </i>
+                                                </a>
+                                                <span class="starbap-text"> 0 đánh giá </span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-sm-12 col-xs-12">
+                                    
+                                    <div class="product-gallery">
+                                        <div class="image-container image-main">
+                                            <img src="~/image/@Model.ProductImages.FirstOrDefault()?.ImageUrl" alt="Ảnh chính" id="main-image" />
+                                        </div>
+                                        <div class="thumbs-swiper swiper-container">
+                                            <div class="swiper-wrapper" id="thumb-container">
+                                                @foreach (var item in Model.ProductImages)
+                                                {
+                                                    <div class="swiper-slide">
+                                                        <img src="@Url.Content("~/media/products/" + item.ImageUrl)" alt="Ảnh 1" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-12 col-xs-12 product-top-detail">
+                                    <div class="d-flex">
+                                        <div class="product-price" id="product-preview">
+                                            <span class="pro-price">  @Model.Price.ToString("N0") đ </span>
+                                            <del>3,700,000</del>
+                                            <span class="pro-sale"> -51% </span>
+                                        </div>
+                                    </div>
+
+                                    <form action="">
+                                        <div class="selector-actons">
+                                            <div class="quantity-area clearfix">
+                                                <input type="button"
+                                                       value="-"
+                                                       onclick="minusQuantity()"
+                                                       class="qty-btn" />
+                                                <input type="text"
+                                                       id="quantity"
+                                                       name="quantity"
+                                                       value="1"
+                                                       min="1"
+                                                       class="quantity-selector" />
+                                                <input type="button"
+                                                       value="+"
+                                                       onclick="plusQuantity()"
+                                                       class="qty-btn" />
+                                            </div>
+                                            <div class="wrap-addcart">
+                                                @if (Model.Stock > 0)
+                                                {
+                                                    <a asp-controller="Cart" asp-action="Add" asp-route-Id="@Model.ProductId" class="btn product-buy-cart">
+                                                        Thêm Vào Giỏ
+                                                    </a>
+
+
+                                                    <button type="button"
+                                                            id="buy-now-2"
+                                                            class="btn buy-cart">
+                                                        Mua Ngay
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="button"
+                                                            id="out-of-stock"
+                                                            class="btn buy-out disabled-btn" disabled>
+                                                        Hết hàng
+                                                    </button>
+                                                }
+                                            </div>
+                                            @await Component.InvokeAsync("AddToCart")
+
+
+
+                                            <div class="product-short-desc">
+                                                <p>
+                                                    <span>
+                                                        <b>
+                                                            MUA 50GAM TẶNG (1 HỘP TÁO ĐỎ + 1 ĐƯỜNG
+                                                            PHÈN)
+                                                        </b>
+                                                    </span>
+                                                </p>
+                                                <p>
+                                                    <span>
+                                                        <b>MUA 100GAM</b>
+                                                    </span>
+                                                    <span>
+                                                        <b>
+                                                            TẶNG (1 HỘP TÁO ĐỎ + 1 ĐƯỜNG PHÈN) + 2 HŨ
+                                                            THƯỢNG VY YẾN ĐẢO HOẶC HỘP ĐỰNG QUÀ TẶNG
+                                                        </b>
+                                                    </span>
+                                                </p>
+                                                <p class="product-short-desc-text">
+                                                    <span><b>Điểm nổi bật</b></span>
+                                                </p>
+                                                <ul class="product-short-desc-ul">
+                                                    <li>
+                                                        <span>
+                                                            Tiết kiệm <b>70% </b>thời gian nhặt lông so
+                                                            với loại khác trên thị trường.
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            Tổ yến thô
+                                                            <b>Nha Trang nguyên chất 100%, </b>không độn
+                                                            phụ gia tạp chất, có mùi thơm đặc trưng.
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            Tổ yến được lựa chọn từ yến
+                                                            <b>12 năm tuổi, </b>chất lượng cao từ hương vị
+                                                            đến dinh dưỡng.
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            Yến thô già tổ, gân dày, tổ chữ AB, ít lông,
+                                                            không bụng, không tạp chất .
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            Món quà tặng đầy cao cấp và giá trị các dịp
+                                                            lễ tết.
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            <b>CICI Thượng Đỉnh Yến </b>luôn luôn đảm bảo
+                                                            về chất lượng sản phẩm.
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="product-bonus">
+                                        <div id="bonus">
+                                            <div class="bonus-heading">
+                                                <h3>Các sản phẩm được tặng kèm</h3>
+                                                <p>Chọn 1 trong các loại quà tặng</p>
+                                            </div>
+                                            <div id="bonus-list">
+                                                <div class="buy-bonus-list">
+                                                    <div class="buy-bonus-checkbox">
+                                                        <input type="radio" class="check-bonus" />
+                                                    </div>
+                                                    <div class="buy-bonus-img">
+                                                        <a href="">
+                                                            <img width="60"
+                                                                 src="./image/anh_bonus.webp"
+                                                                 alt="" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="buy-bonus-title">
+                                                        <p>
+                                                            Khi mua <strong>1</strong>
+                                                            <span class="buy-bonus-text">
+                                                                Tổ yến thô VIP 2 <br />
+                                                            </span>
+                                                            Tặng
+                                                            <strong> 2 </strong>
+                                                            <a href="">Thượng Vy Yến Đảo Nhân Sâm - 1 hũ.</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 col-xs-12">
+                                    <div class="product-top-service">
+                                        <div class="product-top-service-item">
+                                            <div class="product-service-icon">
+                                                <i class="bi bi-airplane"></i>
+                                            </div>
+                                            <div class="product-service-title">
+                                                <b>Giao hàng toàn quốc</b>
+                                            </div>
+                                        </div>
+                                        <div class="product-top-service-item">
+                                            <div class="product-service-icon">
+                                                <i class="bi bi-clock"></i>
+                                            </div>
+                                            <div class="product-service-title">
+                                                Chính hãng 100% - Nhận hàng trong 2 giờ
+                                            </div>
+                                        </div>
+                                        <div class="product-top-service-item">
+                                            <div class="product-service-icon">
+                                                <i class="bi bi-shield-check"></i>
+                                            </div>
+                                            <div class="product-service-title">
+                                                Được kiểm tra hàng trước khi nhận
+                                            </div>
+                                        </div>
+                                        <div class="product-top-service-item">
+                                            <div class="product-service-icon">
+                                                <i class="bi bi-lock"></i>
+                                            </div>
+                                            <div class="product-service-title">
+                                                Đổi trả trong 48h nếu không hài lòng
+                                            </div>
+                                        </div>
+                                        <div class="product-top-service-item">
+                                            <div class="product-service-icon">
+                                                <i class="bi bi-patch-check"></i>
+                                            </div>
+                                            <div class="product-service-title">
+                                                Sản phẩm đã được chứng nhận
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-service">
+                                        <div class="product-top-service-item" data-number="1">
+                                            Sản phẩm chính hãng 100%
+                                        </div>
+                                        <div class="product-top-service-item" data-number="2">
+                                            Đổi trả trong 48h nếu không hài lòng
+                                        </div>
+                                        <div class="product-top-service-item" data-number="3">
+                                            Hoàn tiền 500% nếu phát hiện hàng giả
+                                        </div>
+                                        <div class="product-top-service-item" data-number="4">
+                                            Hỗ trợ tư vấn nhiệt tình 24/24
+                                        </div>
+                                        <div class="product-top-service-item" data-number="5">
+                                            Đính kèm cẩm nang hướng dẫn sử dụng sản phẩm
+                                        </div>
+                                        <div class="product-top-service-item" data-number="6">
+                                            Ưu đãi khủng cho khách hàng thân thiết
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="space"></section>
+                <div class="col-12 product-mb">
+                    <div class="bg-white">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="droduct-discription">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active"
+                                               id="nav-home-tab"
+                                               data-bs-toggle="tab"
+                                               href="#nav-home"
+                                               role="tab"
+                                               aria-controls="nav-home"
+                                               aria-selected="true">Thông tin sản phẩm</a>
+
+                                            <a class="nav-item nav-link"
+                                               id="nav-profile-tab"
+                                               data-bs-toggle="tab"
+                                               href="#nav-profile"
+                                               role="tab"
+                                               aria-controls="nav-profile"
+                                               aria-selected="false">Hướng dẫn mua hàng</a>
+
+                                            <a class="nav-item nav-link"
+                                               id="nav-comment-tab"
+                                               data-bs-toggle="tab"
+                                               href="#nav-comment"
+                                               role="tab"
+                                               aria-controls="nav-comment"
+                                               aria-selected="false">Bình luận</a>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active"
+                                             id="nav-home"
+                                             role="tabpanel"
+                                             aria-labelledby="nav-home-tab">
+                                            <p class="navbar-home-p">
+                                                <span class="navbar-home-span">
+                                                    <b>
+                                                        <span>
+                                                            <em> Tổ yến thô Nha Trang VIP 2 </em>
+                                                        </span>
+                                                        là nguồn thực phẩm sạch, cung cấp rất nhiều
+                                                        dưỡng chất cho cơ thể. Những ưu điểm của tổ yến
+                                                        thô Nha Trang tại CiCi Thượng Đỉnh Yến:
+                                                    </b>
+                                                </span>
+                                            </p>
+                                            <ul class="navbar-home-ul">
+                                                <li>
+                                                    <span>
+                                                        <em>
+                                                            <b> Tổ Yến Thô Nha Trang VIP 2 </b>
+                                                        </em>
+                                                        <span>
+                                                            chứa nhiều thành phần axit amin quan trọng rất
+                                                            tốt cho sức khỏe
+                                                        </span>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Yến thô già tổ, tổ AB, sạch lông, không tạp
+                                                        chất, nhà yến 12 năm tuổi
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Giúp cải thiện, nâng cao sức khoẻ cho người sử
+                                                        dụng
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        CICI Thượng Đỉnh Yến luôn luôn đảm bảo về chất
+                                                        lượng sản phẩm
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <p class="navbar-home-p">
+                                                <span class="navbar-home-span">
+                                                    <b>
+                                                        <span>
+                                                            <em>
+                                                                <a class="nav-prt-cl" href="">
+                                                                    Tổ yến thô Nha Trang VIP 2
+                                                                </a>
+                                                            </em>
+                                                        </span>
+                                                        được xem là nguồn thực phẩm sạch ngoài tự nhiên
+                                                        hiện nay, cung cấp nhiều chất dinh dưỡng rất cần
+                                                        thiết cho con người, bởi trong thành phần của
+                                                        yến sào có chứa rất nhiều hàm lượng protein cao
+                                                        cũng như gồm 18 loại acid amin và đặc biệt rất
+                                                        tốt cho sức khỏe.
+                                                    </b>
+                                                </span>
+                                            </p>
+                                            <p style="text-align: center">
+                                                <img class="navbar-home-img"
+                                                     src="./image/product-img-mota.webp"
+                                                     alt="" />
+                                            </p>
+                                            <h2>
+                                                <span class="nav-prt-cl">
+                                                    1. Tổ yến thô nha trang VIP 2 đặc điểm và phân
+                                                    loại?
+                                                </span>
+                                            </h2>
+                                            <p>
+                                                <span>
+                                                    Tổ yến chứa rất nhiều chất dinh dưỡng có lợi cho
+                                                    sức khỏe, và
+                                                </span>
+                                                <span class="nav-prt-cl">tổ yến thô </span>
+                                                <span>
+                                                    có thể chế biến được nhiều món và hương vị tự
+                                                    nhiên nhất. Vì vậy, yến sào luôn là sự lựa chọn
+                                                    hàng đầu trong các thực phẩm bồi bổ sức khỏe, đặc
+                                                    biệt là phụ mang thai và sau sinh, người già hay
+                                                    người ốm sử dụng yến đều đặn tăng khả năng hồi
+                                                    phục rất nhanh.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    Yến sào hiện nay trên thị trường được phân ra
+                                                    nhiều loại, dựa vào nguồn gốc, nơi hình thành (Yến
+                                                    nhà, Yến đảo) và xuất xứ, màu sắc (Bạch yến, Hồng
+                                                    yến, Huyết yến và Yến vàng). Tùy vào độ khan hiếm
+                                                    của chúng và hàm lượng dinh dưỡng, các loại yến
+                                                    sào sẽ có giá trị kinh tế khác nhau trên thị
+                                                    trường.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    Tổ yến thô trên thị trường có sự chênh lệch giá
+                                                    do chất lượng, nhu cầu của khách hàng và sự khác
+                                                    biệt giữa các loại. Điều này gây nên hoang mang
+                                                    cho người tiêu dùng, cao quá thì sợ mình mua đắt
+                                                    còn rẻ quá thì sợ hàng giả, hàng nhái.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    <a style="text-decoration: underline" href="">
+                                                        <span class="nav-prt-cl">
+                                                            Tổ yến thô đảo
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span>nói chung và</span>
+                                                <a style="text-decoration: underline" href="">
+                                                    <span class="nav-prt-cl">
+                                                        Tổ yến thô đảo
+                                                    </span>
+                                                </a>
+                                                <span>
+                                                    Nha Trang nói riêng là món ăn cao cấp, từ xưa chỉ
+                                                    dành cho giới quý tộc, quan lại và vua chúa. Ngày
+                                                    nay, tổ yến vẫn giữ được sự cao cấp của mình nhưng
+                                                    đã phổ biến hơn trên thị trường, mọi người đều có
+                                                    thể sử dụng. Và hơn hết, món ăn này rất ngon miệng
+                                                    cùng với giá trị dinh dưỡng vô cùng lớn.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>Đúng như tên gọi,</span>
+                                                <span class="nav-prt-cl">
+                                                    Tổ yến thô Nha Trang
+                                                </span>
+                                                <span>
+                                                    là loại yến nguyên chất 100% chưa qua sơ chế, xử
+                                                    lý và, còn nguyên trạng từ trên vách đá mang về.
+                                                    Tổ yến thô nguyên lông có mùi thơm đặc trưng, sợi
+                                                    yến rất dai và nở nhiều hơn tổ yến tinh chế. Đặc
+                                                    biệt, tổ yến thô dễ dàng để phân biệt hàng thật và
+                                                    hàng giả.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    Nếu có nhiều thời gian rảnh rỗi thì hãy chọn tổ
+                                                    yến còn lông để nhặt thay cho tổ yến tinh chế,
+                                                    tránh những trường hợp mất chất dinh dưỡng trong
+                                                    yến, nhưng chú ý phải nhặt lông tổ yến thật sạch
+                                                    bạn nhé vì ăn phải lông yến sẽ mất đi cảm giác
+                                                    ngon miệng.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    Nếu bạn không có thời gian rảnh, luôn phải dành
+                                                    thời gian cho công việc nhưng vẫn muốn chăm sóc tổ
+                                                    ấm của mình, hãy tham khảo các sản phẩm tổ yến
+                                                    tinh chế 100% yến tươi tự nhiên tại
+                                                    <b>CiCi Thượng Đỉnh Yến</b> nhé!
+                                                </span>
+                                            </p>
+                                            <p style="text-align: center">
+                                                <img class="navbar-home-img"
+                                                     src="./image/product-img-mota2.jpg"
+                                                     alt="" />
+                                            </p>
+                                            <p>
+                                                <span style="font-size: 18px">
+                                                    <b>
+                                                        Tham khảo thêm:
+                                                        <span style="font-style: normal"
+                                                              class="nav-prt-cl">
+                                                            Tổ yến tinh chế 100% tự nhiên
+                                                        </span>
+                                                    </b>
+                                                </span>
+                                            </p>
+                                            <h2>
+                                                <span class="nav-prt-cl">
+                                                    2. Tổ yến thô nha trang VIP 2 có những công dụng
+                                                    gì?
+                                                </span>
+                                            </h2>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        Tổ yến là món "bát trân trong bát trân" có nguồn
+                                                        gốc tự nhiên rất quý từ xưa, chỉ được dùng cho
+                                                        vua chúa. Đến nay, sản phẩm
+                                                    </span>
+                                                    <span class="nav-prt-cl">tổ yến</span>
+                                                    <span>
+                                                        vẫn không mất đi sự quý giá của nó và được
+                                                        nhiều khách hàng lựa chọn bởi tác dụng bồi bổ
+                                                        rất lớn.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Trong tổ yến chưa 50% Protein tự nhiên, 18 loại
+                                                        Acid Amin và hơn 31 nguyên tố vi lượng. Phần lớn
+                                                        trong số này là các chất cơ thể con người không
+                                                        tự tổng hợp được, cần phải nạp từ bên ngoài.
+                                                        Chính vì vậy,
+                                                    </span>
+                                                    <span class="nav-prt-cl">tổ yến</span>
+                                                    <span>có tác dụng rất tốt với cơ thể.</span>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <span style="font-size: 18px">
+                                                    <b>
+                                                        Xem cụ thể Tác dụng của tổ yến tại đây:
+                                                        <a href="">
+                                                            <span style="font-style: normal"
+                                                                  class="nav-prt-cl">
+                                                                Tổ yến tinh chế 100% tự nhiên
+                                                            </span>
+                                                        </a>
+                                                    </b>
+                                                </span>
+                                            </p>
+                                            <p style="text-align: center">
+                                                <img class="navbar-home-img"
+                                                     src="./image/product-img-mota.webp"
+                                                     alt="" />
+                                            </p>
+                                            <p>
+                                                <span style="font-size: 18px">
+                                                    <b>
+                                                        Xem thêm nhiều sản phẩm về yến sạch tại:
+                                                        <a href="">
+                                                            <span style="font-style: normal"
+                                                                  class="nav-prt-cl">
+                                                                thuongdinhyen.vn
+                                                            </span>
+                                                        </a>
+                                                    </b>
+                                                </span>
+                                            </p>
+                                            <h2>
+                                                <span class="nav-prt-cl">
+                                                    3. Tại sao phải lựa chọn Cici Thượng Đỉnh Yến
+                                                </span>
+                                            </h2>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        Bồi đền 500 % khi khách hàng phát hiện hàng
+                                                        giả, hàng chất lượng kém.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Uy tín bán hàng 100% tự nhiên, không bán hàng
+                                                        trôi nổi.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Nguyên liệu đạt chuẩn: không hóa chất, không
+                                                        chất bảo quản, không chất phụ gia độc hại.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Đội ngũ tư vấn viên có trách nhiệm cao, nhiệt
+                                                        tình, thân thiện, thấu hiểu mong muốn của khách
+                                                        hàng.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Hình thức giao hàng và thanh toán linh hoạt
+                                                        nhất hiện nay.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Ưu đãi lớn cho khách hàng đặt mua với số lượng
+                                                        lớn tại công ty.
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <span>
+                                                    <b>
+                                                        Liên hệ ngay với CiCi Thượng Đỉnh Yến qua
+                                                        website:
+                                                    </b>
+                                                </span>
+                                                <span class="nav-prt-cl" style="font-style: normal">
+                                                    Thuongdinhyen.vn
+                                                </span>
+                                                <span>hoặc <b>Hotline:</b></span>
+                                                <span class="nav-prt-cl" style="font-style: normal">
+                                                    0343.579.966
+                                                </span>
+                                                <span>để nhận được tư vấn hoàn toàn miễn phí nhé.</span>
+                                            </p>
+                                            <p>
+                                                <span class="nav-pro-btn-text nav-prt-cl">
+                                                    CICI THƯỢNG ĐỈNH YẾN - THƯƠNG HIỆU YẾN CHƯNG SẴN
+                                                    SỐ 1 VIỆT NAM
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade"
+                                             id="nav-profile"
+                                             role="tabpanel"
+                                             aria-labelledby="nav-profile-tab">
+                                            <p>
+                                                <strong>
+                                                    Không cần trực tiếp đến showroom mua hàng, bạn có
+                                                    thể lựa chọn cách mua hàng online bằng cách chọn
+                                                    một trong những cách mua hàng sau:
+                                                </strong>
+                                            </p>
+                                            <p>
+                                                <span class="nav-prt-cl">Cách 1:</span>
+                                                <span> Gọi điện thoại đến tổng đài </span>
+                                                <b> 039.908.6568</b>
+                                                <span>từ</span>
+                                                <b>7h30 – 22h00</b>
+                                                <span> (cả <b>CN & ngày lễ</b> )</span>
+                                                <span>
+                                                    để đặt hàng, nhân viên chúng tôi luôn sẵn phục
+                                                    vụ, tư vấn và hỗ trợ quý khách mua được sản phẩm
+                                                    ưng ý.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span class="nav-prt-cl">Cách 2:</span>
+                                                <span> Đặt mua hàng online trên website: </span>
+                                                <a href="">
+                                                    <span class="nav-prt-cl">
+                                                        http://thuongdinhyen.vn/
+                                                    </span>
+                                                </a>
+                                            </p>
+                                            <h3 style="font-size: 18px">
+                                                <span> <b>Bước 1: Tìm sản phẩm cần mua</b> </span>
+                                            </h3>
+                                            <p>
+                                                <span>Bạn có thể truy cập website </span>
+                                                <a href="">
+                                                    <span class="nav-prt-cl">
+                                                        http://thuongdinhyen.vn/
+                                                    </span>
+                                                </a>
+                                            </p>
+                                            <span>
+                                                để tìm và chọn sản phẩm muốn mua bằng nhiều cách:
+                                            </span>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        Sử dụng ô tìm kiếm phía trên, gõ tên sản phẩm
+                                                        muốn mua (có sẵn các gợi ý: tổ yến thô, nước
+                                                        yến…). Website sẽ cung cấp cho bạn những gợi ý
+                                                        chính xác để lựa chọn:
+                                                    </span>
+                                                </li>
+                                                <p style="text-align: center">
+                                                    <img class="navbar-home-img"
+                                                         style="width: auto"
+                                                         src="./image/product-img-hdan.webp"
+                                                         alt="" />
+                                                </p>
+                                                <li>
+                                                    <span>
+                                                        Trang chủ website luôn có sẵn những gợi ý ở mục
+                                                        sản phẩm, bạn cũng có thể chọn xem ngay mà không
+                                                        cần tìm kiếm:
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Sử dụng menu sản phẩm của website: chọn loại
+                                                        sản phẩm muốn mua là tổ yến thô còn lông, tổ yến
+                                                        tinh chế, tổ yến rút lông hay tổ yến chưng sẵn
+                                                        tiện lợi…
+                                                    </span>
+                                                    <p style="text-align: center">
+                                                        <img class="navbar-home-img"
+                                                             style="width: auto"
+                                                             src="./image/product-img-hdan2.webp"
+                                                             alt="" />
+                                                    </p>
+                                                    <p style="text-align: center">
+                                                        <img class="navbar-home-img"
+                                                             style="width: auto"
+                                                             src="./image/product-img-hdan3.webp"
+                                                             alt="" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <h3 style="font-size: 18px">
+                                                <span> <b>Bước 2: Đặt mua sản phẩm</b> </span>
+                                            </h3>
+                                            <p>
+                                                <span>
+                                                    Sau khi chọn được sản phẩm ưng ý muốn mua, bạn
+                                                    tiến hành đặt hàng bằng cách:
+                                                </span>
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        Chọn vào nút Trọng Lượng ( chọn size, gram phù
+                                                        hợp)
+                                                    </span>
+                                                </li>
+                                                <p style="text-align: center">
+                                                    <img class="navbar-home-img"
+                                                         style="width: auto"
+                                                         src="./image/product-img-hdan4.webp"
+                                                         alt="" />
+                                                </p>
+                                                <li>
+                                                    <span>
+                                                        Điền đầy đủ các thông tin mua hàng theo các
+                                                        bước trên website: họ tên người nhận, số điện
+                                                        thoại, thông tin khác (không bắt buộc) , và bấm
+                                                        kết thúc bằng việc nhấn đặt hàng.
+                                                    </span>
+                                                </li>
+                                                <p style="text-align: center">
+                                                    <img class="navbar-home-img"
+                                                         style="width: auto"
+                                                         src="./image/product-img-hdan5.webp"
+                                                         alt="" />
+                                                </p>
+                                                <li>
+                                                    <span>
+                                                        Ngoài ra, quý khách có thể chọn Mua Nhanh bằng
+                                                        cách để lại số điện thoại để nhân viên tư vấn
+                                                        chủ động gọi lại để tiếp nhận yêu cầu quý
+                                                        khách.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Sau khi đặt hàng thành công, Thượng Đỉnh Yến sẽ
+                                                        liên hệ quý khách để xác nhận và hoàn tất thủ
+                                                        tục.
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <span>Ngoài các cách trên, để mua hàng tại</span>
+                                                <b> Thượng Đỉnh Yến</b>
+                                                <span>
+                                                    quý khách còn có thể để lại bình luận tại bất kì
+                                                    đâu trên website (có thông tin tên, số điện
+                                                    thoại…), hoặc trực tiếp chat với tư vấn viên của
+                                                    công ty để được tư vấn và đặt mua sản phẩm.
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span><b>Lưu ý:</b></span>
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        Chúng tôi chỉ chấp nhận những đơn đặt hàng khi
+                                                        cung cấp đủ thông tin chính xác về địa chỉ, số
+                                                        điện thoại. Sau khi bạn đặt hàng, chúng tôi sẽ
+                                                        liên lạc lại để kiểm tra thông tin và thỏa thuận
+                                                        thêm những điều có liên quan.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Một số trường hợp nhạy cảm: giá trị đơn hàng
+                                                        quá lớn & thời gian giao hàng vào buổi tối địa
+                                                        chỉ giao hàng trong ngõ hoặc có thể dẫn đến nguy
+                                                        hiểm. Chúng tôi sẽ chủ động liên lạc với quý
+                                                        khách để thống nhất lại thời gian giao hàng cụ
+                                                        thể.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Trong trường hợp giao hàng chậm trễ mà không
+                                                        báo trước, quý khách có thể không nhận hàng và
+                                                        chúng tôi sẽ hoàn trả toàn bộ số tiền mà quý
+                                                        khách trả trước (nếu có) trong vòng 7
+                                                        ngày.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        Công ty cam kết tất cả hàng hóa gởi đến quý
+                                                        khách đều là hàng đảm bảo mới 100% (có đầy đủ
+                                                        hóa đơn, được bảo hành chính thức). Những rủi ro
+                                                        phát sinh trong quá trình vận chuyển (va đập, ẩm
+                                                        ướt, tai nạn…) có thể ảnh hưởng đến hàng hóa, vì
+                                                        thế xin Quý Khách vui lòng kiểm tra hàng hóa
+                                                        thật kỹ trước khi ký nhận.
+                                                    </span>
+                                                    <b style="font-size: 18px">CiCi Thượng Đỉnh Yến</b>
+                                                    <span>
+                                                        sẽ không chịu trách nhiệm với những sai lệch
+                                                        hình thức của hàng hoá sau khi Quý khách đã ký
+                                                        nhận hàng.
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <p><span>Xin chân thành cảm ơn!</span></p>
+                                        </div>
+                                        <div class="tab-pane fade"
+                                             id="nav-comment"
+                                             role="tabpanel"
+                                             aria-labelledby="nav-comment-tab">
+                                            <!-- SDK -->
+                                            <div id="fb-root"></div>
+                                            <script async
+                                                    defer
+                                                    crossorigin="anonymous"
+                                                    src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"></script>
+
+                                            <!-- Khung bình luận -->
+                                            <h3>Bình luận</h3>
+                                            <div class="fb-comments"
+                                                 data-href="https://myshop.com/san-pham/ao-thun"
+                                                 data-width="100%"
+                                                 data-numposts="5"></div>
+                                            <div class="tab-pane-star">
+                                                <h2 class="tab-pane-evalua">Đánh giá sản phẩm</h2>
+                                                <div class="tab-pane-star-cover">
+                                                    <div class="tab-pane-star-icon">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                    <div class="tab-pane-star-text">
+                                                        Dựa trên 0 đánh giá
+                                                    </div>
+                                                </div>
+                                                <a class="tab-pane-star-comment" href="#">
+                                                    <i class="bi bi-chat-text"
+                                                       id="toggleReviewForm"></i>
+                                                    Viết đánh giá
+                                                </a>
+                                                <a class="tab-pane-star-question" href="#">
+                                                    <i class="bi bi-question-circle"></i> Đặt câu
+                                                    hỏi
+                                                </a>
+                                                <div class="tab-pane-form-cover">
+                                                    <form action="" class="star-form">
+                                                        <div class="container">
+                                                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                                                                <div class="star-comment-name">
+                                                                    <label for="">Tên</label>
+                                                                    <input type="text"
+                                                                           placeholder="Nhập tên của bạn" />
+                                                                </div>
+                                                                <div class="star-comment-email">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email"
+                                                                           placeholder="hi@gmail.com" />
+                                                                </div>
+                                                                <div class="star-comment-phone">
+                                                                    <label for="">Số điện thoại</label>
+                                                                    <input type="phone"
+                                                                           placeholder="Nhập số điện thoại của bạn" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="star-comment-star">
+                                                            <label>Đánh giá</label>
+                                                            <div class="rating-stars text-left">
+                                                                <ul id="stars"
+                                                                    class="d-flex list-unstyled gap-1">
+                                                                    <li class="star"
+                                                                        title="Rất tệ"
+                                                                        data-value="1">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </li>
+                                                                    <li class="star"
+                                                                        title="Tệ"
+                                                                        data-value="2">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </li>
+                                                                    <li class="star"
+                                                                        title="Bình thường"
+                                                                        data-value="3">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </li>
+                                                                    <li class="star"
+                                                                        title="Tốt"
+                                                                        data-value="4">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </li>
+                                                                    <li class="star"
+                                                                        title="Xuất sắc"
+                                                                        data-value="5">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="star-comment-title">
+                                                            <label>Tiêu đề đánh giá</label>
+                                                            <input type="text"
+                                                                   placeholder="Nhập tiêu đề đánh giá của bạn"
+                                                                   class="star-comment-title-text" />
+                                                        </div>
+                                                        <div class="star-comment-btn">
+                                                            <label>Nội dung</label>
+                                                            <textarea name=""
+                                                                      placeholder="Viết nội dung đánh giá của bạn"
+                                                                      id=""></textarea>
+                                                        </div>
+                                                        <div class="star-comment-btn">
+                                                            <label class="star-comment-link-vd">Link video (không bắt buộc)</label><input name="review_video"
+                                                                                                                                          type="text"
+                                                                                                                                          class="star-comment-title-text"
+                                                                                                                                          placeholder="Nhập link youtube video của bạn" />
+                                                        </div>
+                                                        <div class="star-comment-btn">
+                                                            <!-- Tiêu đề -->
+                                                            <label class="star-comment-link-vd">Hình ảnh (không bắt buộc)</label>
+
+                                                            <!-- Input file (cho phép chọn nhiều ảnh) -->
+                                                            <input type="file"
+                                                                   id="imageUpload"
+                                                                   accept="image/*"
+                                                                   multiple
+                                                                   style="display: none" />
+
+                                                            <!-- Nút chọn ảnh -->
+                                                            <button type="button"
+                                                                    class="upload-btn"
+                                                                    onclick="document.getElementById('imageUpload').click()">
+                                                                Chọn ảnh từ máy
+                                                            </button>
+
+                                                            <!-- Khung hiển thị ảnh đã chọn -->
+                                                            <div class="image-preview-container"
+                                                                 id="previewContainer"></div>
+                                                        </div>
+                                                        <input type="submit"
+                                                               value="Gửi đánh giá"
+                                                               class="star-comment-submit" />
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane-form-review">
+                                                    <form action="" class="star-form">
+                                                        <div class="container">
+                                                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                                                                <div class="star-comment-name">
+                                                                    <label for="">Tên</label>
+                                                                    <input type="text"
+                                                                           placeholder="Nhập tên của bạn" />
+                                                                </div>
+                                                                <div class="star-comment-email">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email"
+                                                                           placeholder="hi@gmail.com" />
+                                                                </div>
+                                                                <div class="star-comment-phone">
+                                                                    <label for="">Số điện thoại</label>
+                                                                    <input type="phone"
+                                                                           placeholder="Nhập số điện thoại của bạn" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="star-comment-btn">
+                                                            <label>Nội dung</label>
+                                                            <textarea name=""
+                                                                      placeholder="Viết nội dung đánh giá của bạn"
+                                                                      id=""></textarea>
+                                                        </div>
+
+                                                        <input type="submit"
+                                                               value="Gửi câu hỏi"
+                                                               class="star-comment-submit" />
+                                                    </form>
+                                                </div>
+                                                <div class="star-ft-subtab">
+                                                    <span class="star-ft-name active">
+                                                        Đánh giá
+                                                        <span class="star-ft-count"> 0 </span>
+                                                    </span>
+                                                    <span class="star-ft-name">
+                                                        Câu hỏi & trả lời
+                                                        <span class="star-ft-count"> 0 </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="space"></section>
+                <div class="col-12 product-mb">
+                    <div class="bg-white">
+                        <div class="product-ft-list">
+                            <div class="product-ft-heading text-center">
+                                <h2 class="section-title">
+                                    <span>Sản phẩm liên quan</span>
+                                </h2>
+                            </div>
+                            <div class="content-product-list">
+                                <div class="row d-flex ct-product-list">
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <a class="cn-top-pdt-card-img"
+                                                   href="./products.html">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <div class="cn-top-pdt-sale">
+                                                    <span> 10% </span>
+                                                </div>
+                                                <div class="cn-top-pdt-gift">
+                                                    <img src="/image/anh_qua.webp" alt="" />
+                                                </div>
+                                                <a class="cn-top-pdt-card-img"
+                                                   href="./products.html">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <a class="cn-top-pdt-card-img" href="">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <div class="cn-top-pdt-sale">
+                                                    <span> 10% </span>
+                                                </div>
+                                                <div class="cn-top-pdt-gift">
+                                                    <img src="/image/anh_qua.webp" alt="" />
+                                                </div>
+                                                <a class="cn-top-pdt-card-img" href="">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="space"></section>
+                <div class="col-12 product-mb">
+                    <div class="bg-white">
+                        <div class="product-ft-list">
+                            <div class="product-ft-heading text-center">
+                                <h2 class="section-title">
+                                    <span>Sản phẩm đã xem</span>
+                                </h2>
+                            </div>
+                            <div class="content-product-list">
+                                <div class="row d-flex ct-product-list">
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <a class="cn-top-pdt-card-img"
+                                                   href="./products.html">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <div class="cn-top-pdt-sale">
+                                                    <span> 10% </span>
+                                                </div>
+                                                <div class="cn-top-pdt-gift">
+                                                    <img src="/image/anh_qua.webp" alt="" />
+                                                </div>
+                                                <a class="cn-top-pdt-card-img"
+                                                   href="./products.html">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <a class="cn-top-pdt-card-img" href="">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="container-home-pdt-other">
+                                            <div class="cn-top-pdt-card">
+                                                <div class="cn-top-pdt-sale">
+                                                    <span> 10% </span>
+                                                </div>
+                                                <div class="cn-top-pdt-gift">
+                                                    <img src="/image/anh_qua.webp" alt="" />
+                                                </div>
+                                                <a class="cn-top-pdt-card-img" href="">
+                                                    <img src="/image/set-qua-tet.webp" alt="" />
+                                                    <div class="img-overlay"></div>
+                                                </a>
+                                            </div>
+                                            <div class="cn-top-pdt-text">
+                                                <h3 class="cn-top-pdt-h">
+                                                    <a href="" class="cn-top-pdt-name">
+                                                        Yến Chưng Vị Gừng - Set 20 Yến Chưng Sẵn Thượng
+                                                        Phẩm
+                                                    </a>
+                                                </h3>
+                                                <div class="cn-top-pdt-star">
+                                                    <a class="pdt-star">
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="cn-top-pdt-price">
+                                                    <p class="pdt-price">
+                                                        <span class="span-price"> 2,400,000đ </span>
+                                                    </p>
+                                                </div>
+                                                <div class="cn-top-pdt-buy">
+                                                    <button class="cn-btn-buy btn btn mb-2 mb-md-0">
+                                                        <span> Thêm vào giỏ </span>
+                                                        <div class="icon cn-btn-icon d-flex align-items-center justify-content-center">
+                                                            <i class="bi bi-cart3"></i>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end product section -->
+
+<section class="space"></section>
+
+<script src="~/js/containerProduct.js"></script>
+
+<script>
+    function addToCart() {
+        var quantity = document.getElementById('quantity').value;
+        var productId = '@Model.ProductId';
+
+        fetch(`/Cart/Add?Id=${productId}&quantity=${quantity}`, {
+            method: 'GET' // Hoặc POST nếu bạn thay đổi action Add
+        }).then(res => {
+            if (res.ok) {
+                alert('Đã thêm vào giỏ hàng!');
+                // Bạn có thể update UI giỏ hàng tại đây
+            } else {
+                alert('Lỗi thêm vào giỏ hàng!');
+            }
+        });
+    }
+</script>
+

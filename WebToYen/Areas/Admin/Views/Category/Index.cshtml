@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewData["title"] = "Category List";
+}
+<section class="space"></section>
+<a asp-action="Create" asp-controller="Category">Add Category</a>
+
+<table class="table-cart">
+    <thead>
+        <tr>
+            <th class="item">Id</th>
+            <th class="item">Name</th>
+            <th class="item">Slug</th>
+            <th class="item">ParentId</th>
+            <th class="item">DisplayOrder</th>
+            <th class="item">IsActiv</th>
+            <th class="item">Image</th>
+
+            <th class="remove"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="tbody-item">
+
+                <td>@item.CategoryId</td>
+                <td>@item.Name</td>
+                <td>@item.Slug</td>
+                <td>@item.ParentCategory?.Name</td>
+                <td>@item.DisplayOrder</td>
+                <td>@(item.IsActive ? "Có" : "Không")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="@Url.Content("~/media/categories/" + item.Image)" width="100" />
+                    }
+                </td>
+
+
+
+
+                <td>
+                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.CategoryId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId" class="btn btn-danger">Delete</a>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

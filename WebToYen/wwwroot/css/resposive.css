@@ -1,0 +1,193 @@
+/* Hiển thị 2 sản phẩm trên màn hình nhỏ */
+@media (max-width: 767.98px) {
+    .cn-top-pdt-h {
+        font-size: 12px;
+    }
+
+    .heading-left-title {
+        font-size: 16px;
+    }
+
+    .container-home-pdt,
+    .container-home-pdt-featured,
+    .container-home-pdt-gratitude,
+    .container-home-pdt-gift,
+    .container-home-pdt-btn,
+    .container-home-pdt-other,
+    .container-home-pdt-news {
+        flex: 0 0 calc((100% - 16px) / 2);
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .btn-login {
+        display: block;
+        margin-left: 0;
+    }
+
+    .content-login-text {
+        width: 100%;
+    }
+
+    table.table-cart thead tr {
+        display: none;
+    }
+
+    .table-cart tr td {
+        display: block;
+    }
+
+    table.table-cart tr td.image img {
+        max-width: 65px;
+    }
+
+    .table-cart tbody > tr {
+        background: #ffffff;
+        padding: 20px 0;
+        display: block;
+        border-radius: 2px;
+        border-bottom: 1px solid #e8e8e8;
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    table.table-cart tr td:not(.image) {
+        padding-left: 80px !important;
+        width: 100%;
+    }
+
+    .table-cart tr td.image {
+        text-align: center;
+        width: auto;
+        position: absolute;
+        top: 20px;
+        left: 0;
+    }
+
+    .price.money-price {
+        font-size: 14px;
+    }
+    .table-cart tbody td {
+        padding: 0 !important;
+    }
+    td.remove {
+        position: absolute;
+        top: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .ctn-register-pd {
+        margin-left: 25%;
+    }
+}
+/* Hiển thị 3 sản phẩm trên màn hình vừa */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container-home-pdt,
+    .container-home-pdt-featured,
+    .container-home-pdt-gratitude,
+    .container-home-pdt-gift,
+    .container-home-pdt-btn,
+    .container-home-pdt-other,
+    .container-home-pdt-news {
+        flex: 0 0 calc((100% - 16px) / 2);
+        background-color: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .btn-login {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .content-login-text {
+        width: 70%;
+    }
+
+    .ctn-form-pb {
+        padding: 100px 60px;
+    }
+
+    table.table-cart thead tr {
+        display: none;
+    }
+
+    .table-cart tr td {
+        display: block;
+    }
+
+    table.table-cart tr td.image img {
+        max-width: 65px;
+    }
+
+    .table-cart tbody > tr {
+        background: #ffffff;
+        padding: 20px 0;
+        display: block;
+        border-radius: 2px;
+        border-bottom: 1px solid #e8e8e8;
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    table.table-cart tr td:not(.image) {
+        padding-left: 80px !important;
+        width: 100%;
+    }
+
+    .table-cart tr td.image {
+        text-align: center;
+        width: auto;
+        position: absolute;
+        top: 20px;
+        left: 0;
+    }
+
+    .price.money-price {
+        font-size: 14px;
+    }
+    .table-cart tbody td {
+        padding: 0 !important;
+    }
+    td.remove {
+        position: absolute;
+        top: 0;
+    }
+}
+
+/* Hiển thị 4 sản phẩm trên màn hình lớn */
+@media (min-width: 992px) {
+  .container-home-pdt,
+  .container-home-pdt-featured,
+  .container-home-pdt-gratitude,
+  .container-home-pdt-gift,
+  .container-home-pdt-btn,
+  .container-home-pdt-other,
+  .container-home-pdt-news {
+    flex: 0 0 calc((100% - 3 * 16px) / 4);
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 100%;
+  }
+  .btn-login {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-login-text {
+    width: 50%;
+  }
+
+  .ctn-form-pb {
+    padding: 100px 60px;
+  }
+}

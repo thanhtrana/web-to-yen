@@ -1,0 +1,228 @@
+﻿@model Cart
+@using WebToYen.Models
+<section id="breadcrumb">
+    <div class="breadcrumb-cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="bread-cover">
+                        <li class="bread-home" itemtype="./index.html">
+                            <a asp-action="Index" asp-controller="home">
+                                <span> Trang chủ </span>
+                            </a>
+                        </li>
+                        <li class="bread-name">
+                            <span class="product-name"> Giỏ hàng </span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="space"></section>
+
+<section id="cart">
+    <div class="cart-content" id="content-cart">
+        <div class="cart-cover-detail">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="bg-white">
+                            <div class="heading-page">
+                                <div class="header-page">
+                                    <h1>Giỏ hàng của bạn</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="space"></section>
+                <div class="row" id="order-form">
+                    <div class="col-12 col-md-12">
+                        <div class="bg-white">
+                            <div class="row cart-content-wrap">
+                                <div class="col-12 cart-content-detail">
+                                    <div class="cart-container">
+                                        <div class="cart-ctn-left">
+                                            <div class="cart-ctn-main">
+                                                <form action="" id="cart-form-page">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <table class="table-cart">
+                                                                <thead>
+                                                                    @if (Model.CartItems.Count > 0)
+                                                                    {
+
+                                                                    <tr>
+                                                                        <th class="image"></th>
+                                                                        <th class="item">Tên sản phẩm</th>
+                                                                        <th class="item">Giá</th>
+                                                                        <th class="item">Số lượng</th>
+                                                                        <th class="item">Thành tiền</th>
+                                                                        <th class="remove"></th>
+                                                                    </tr>
+                                                                    }
+                                                                </thead>
+                                                                <tbody>
+                                                                    @if (Model.CartItems.Count > 0)
+                                                                    {
+                                                                        @foreach (var item in Model.CartItems)
+                                                                        {
+
+
+
+                                                                            <tr class="tbody-item">
+                                                                                <td class="image">
+                                                                                    <div class="product_image">
+                                                                                        <a href="#">
+                                                                                            <img src="~/image/@item.ProductImage"
+                                                                                            alt="" />
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="item" width="420px">
+                                                                                    <h3>
+                                                                                        <a href="#">
+                                                                                            @item.ProductName
+                                                                                        </a>
+                                                                                    </h3>
+                                                                                </td>
+                                                                                <td class="item">
+                                                                                    <p>
+                                                                                        <span class="price">@item.UnitPrice đ</span>
+                                                                                    </p>
+                                                                                </td>
+                                                                                <td class="qty">
+                                                                                    <div class="quantity-area clearfix">
+
+                                                                                        <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId">
+                                                                                        <input type="button"
+                                                                                        value="-"
+                                                                                        onclick="minusQuantity()"
+                                                                                        class="qty-btn"
+                                                                                        />
+                                                                                        </a>
+                                                                                        <a>
+                                                                                        <input type="text"
+                                                                                        id="quantity"
+                                                                                        name="quantity"
+                                                                                        value="@item.Quantity"
+                                                                                        min="1"
+                                                                                        class="quantity-selector" />
+                                                                                                </a>
+                                                                                        <a asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId">
+                                                                                        <input type="button"
+                                                                                        value="+"
+                                                                                        onclick="plusQuantity()"
+                                                                                        class="qty-btn" 
+                                                                                         />
+                                                                                        
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="item">
+                                                                                    <p>
+                                                                                        <span class="money-price price">
+                                                                                            <span class="d-money">
+                                                                                                @item.TotalPrice.ToString("N0") đ
+
+                                                                                            </span>
+                                                                                    </p>
+                                                                                </td>
+                                                                                <td class="remove">
+                                                                                    <a class="cart" asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId">
+                                                                                        <i class="bi bi-x"></i>
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <tr>
+                                                                            <td colspan="6">
+                                                                                <div class="row">
+                                                                                    <div class="col-12 content-cart-none">
+                                                                                        <div class="cart-container">
+                                                                                            <div class="expanded-message">
+                                                                                                <p class="cart-empty">Giỏ hàng của bạn đang trống</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    @if (Model.CartItems.Count > 0)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-5 col-lg-7">
+                                                                <div class="product-note">
+                                                                    <h3>Ghi chú đơn hàng</h3>
+                                                                    <div class="product-check-note">
+                                                                        <textarea name="note"
+                                                                        id="note"
+                                                                        rows="4"
+                                                                        placeholder="Ghi chú"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-7 col-lg-5">
+                                                                <div class="product-order">
+                                                                    <div class="product-order-title">
+                                                                        <h3>Thông tin đơn hàng</h3>
+                                                                    </div>
+                                                                    <div class="product-order-total">
+                                                                        <p>
+                                                                            Tổng tiền:
+                                                                            <span class="order-price">
+                                                                                @Model.GrandlTotal.ToString()đ
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="order-text">
+                                                                        <p>
+                                                                            Phí vận chuyển được tính ở trang thanh
+                                                                            toán.
+                                                                            <br />
+                                                                            Bạn cũng có thể nhập mã giảm giá ở trang
+                                                                            thanh toán.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="order-action">
+                                                                        <a href="" class="btn-checkout btn">THANH TOÁN</a>
+                                                                        <p class="link-continue">
+                                                                            <a asp-action="Index" asp-controller="Home">
+                                                                                <i class="bi bi-reply-fill"></i>
+                                                                                Tiếp tục mua hàng
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="space"></section>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

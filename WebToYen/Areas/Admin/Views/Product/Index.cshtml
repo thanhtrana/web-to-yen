@@ -1,0 +1,69 @@
+﻿
+@model IEnumerable<Product>
+
+@{
+    ViewData["title"] = "Product List";
+}
+<section class="space"></section>
+<a asp-action="Create" asp-controller="Product">Add Product</a>
+
+<table class="table-cart">
+    <thead>
+        <tr>
+            <th class="item">Id</th>
+            <th class="item">Tên Sản Phẩm</th>
+            <th class="item">Mô Tả</th>
+            <th class="item">Giá</th>
+            <th class="item">Ảnh</th>
+            <th class="item">Danh Mục</th>
+            <th class="item">Số Lượng</th>
+            <th class="item">Ngày Tạo</th>
+
+            <th class="remove"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {  
+        <tr class="tbody-item">
+
+            <td class="item">
+                @item.ProductId
+            </td>
+            <td class="item">
+                @item.Name
+            </td>
+            <td class="item">
+                @item.Description
+            </td>
+            <td class="item">
+                    @item.Price.ToString("N0") đ
+            </td>
+                <td class="item" width="420px">
+                    <img src="@Url.Content("~/media/products/" + item.Image)" width="100" />
+
+            </td>
+            <td class="item">
+                    @item.Category?.Name
+            </td>
+            <td class="item">
+                @item.Stock
+            </td>
+            <td class="item">
+                @item.CreatedAt
+            </td>
+
+
+
+            <td class="remove">
+                <a asp-action="Edit" asp-controller="Product" asp-route-Id="@item.ProductId" class="btn ptn-warning">Sửa</a>
+            </td>
+            <td class="remove">
+                <a asp-action="Delete" asp-controller="Product" asp-route-Id="@item.ProductId" class="btn btn-danger">Xóa</a>
+            </td>
+
+                
+        </tr>
+        }
+    </tbody>
+</table>
