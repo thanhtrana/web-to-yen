@@ -66,15 +66,23 @@
         </div>
 
         <script>
-            // JS đơn giản để toggle dropdown mini cart
-            document.querySelector('.header-shop-toggle').addEventListener('click', function(e){
-                e.preventDefault();
-                var dropdown = document.querySelector('.header-action-dropdown');
-                if(dropdown.style.display === 'none' || dropdown.style.display === ''){
-                    dropdown.style.display = 'block';
-                } else {
-                    dropdown.style.display = 'none';
+                        // JS đơn giản để toggle dropdown mini cart
+                        document.addEventListener('DOMContentLoaded', function() {
+              const headerShop = document.querySelector('.header-shop');
+              const headerActionDropdown = document.querySelector('.header-action-dropdown');
+
+              // Toggle dropdown khi click vào header-shop
+              headerShop.addEventListener('click', function(event) {
+                event.stopPropagation();  // Ngăn chặn sự kiện click lan tỏa
+                headerShop.classList.toggle('active');
+              });
+
+              // Đóng dropdown khi click ra ngoài
+              document.addEventListener('click', function(event) {
+                if (!headerShop.contains(event.target)) {
+                  headerShop.classList.remove('active');
                 }
+              });
             });
         </script>
     }
