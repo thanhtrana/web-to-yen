@@ -8,6 +8,8 @@ namespace WebToYen.Models
         [Key]
         public int OrderItemId { get; set; }
 
+        public string OrderCode { get; set; }
+
         public int OrderId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
@@ -16,6 +18,7 @@ namespace WebToYen.Models
         public decimal UnitPrice { get; set; }
 
         public virtual Order Order { get; set; }
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
     }
 }

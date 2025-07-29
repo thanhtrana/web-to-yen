@@ -1,0 +1,67 @@
+﻿@model WebToYen.Models.User
+@{
+    ViewData["Title"] = "Dang Ky";
+}
+
+<!-- start register section -->
+
+<div class="container-register">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 ctn-register-mg">
+                <div class="bg-white">
+                    <div class="row">
+                        <div class="col-12 col-md-6 ctn-form-pb ctn-register-pd">
+                            <h1 class="ctn-rgt-title text-center">Đăng ký</h1>
+                            <div class="user-box">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <form asp-action="Register" asp-controller="Account">
+                                    
+                                    <div id="form-fist-name" class="form-register">
+                                        <label for="fist-name" class="label"></label>
+                                        <span asp-validation-for="UserName"></span>
+                                        <input asp-for="UserName"
+                                               placeholder="Họ và Tên"
+                                               id="fist-name" />
+                                    </div>
+                                    <div id="form-email" class="form-register">
+                                        <label for="email" class="label"></label>
+                                        <span asp-validation-for="Email"></span>
+                                        <input asp-for="Email"
+                                               placeholder="Email"
+                                               id="email" />
+                                    </div>
+                                    <div id="form-password" class="form-register">
+                                        <label for="password" class="label"></label>
+                                        <span asp-validation-for="Password"></span>
+                                        <input asp-for="Password"
+                                               placeholder="Password"
+                                               id="password" />
+                                    </div>
+                                    <button class="acction-btn-bd">
+                                        <div class="acction-btn">
+                                            <span>Đăng ký</span>
+                                        </div>
+                                    </button>
+                                    <div class="form-home">
+                                        <a asp-controller="Home" asp-action="Index" class="home-back">
+                                            <i class="bi bi-arrow-left"></i>
+                                            Quay lại trang chủ
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end register section -->
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+}

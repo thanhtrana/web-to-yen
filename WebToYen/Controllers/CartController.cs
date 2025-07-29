@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebToYen.Models;
 using WebToYen.Repository;
 
@@ -40,7 +41,9 @@ namespace WebToYen.Controllers
 
         public async Task<IActionResult> Add(int Id)
         {
-            Product product = await _dataContext.Products.FindAsync(Id);
+            Product product = await _dataContext.Products
+    .Include(p => p.ProductImages)
+    .FirstOrDefaultAsync(p => p.ProductId == Id);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("CartItems") ?? new List<CartItem>();
             CartItem cartItem = cart.Where(c => c.ProductId == Id).FirstOrDefault();
 

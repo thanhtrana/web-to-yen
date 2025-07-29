@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +8,8 @@ using WebToYen.Repository;
 
 namespace WebToYen.Areas.Admin.Controllers
 {
-        [Area("Admin")]
+    [Area("Admin")]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly DataContext _dataContext;
@@ -26,10 +28,7 @@ namespace WebToYen.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.ParentCategories = new SelectList(
-       _dataContext.Categories.Where(c => c.ParentId == null),
-       "CategoryId",
-       "Name"
-        );
+       _dataContext.Categories.Where(c => c.ParentId == null),"CategoryId","Name");
             return View();
         }
 
@@ -77,9 +76,7 @@ namespace WebToYen.Areas.Admin.Controllers
 
             TempData["error"] = "Tạo danh mục thất bại.";
             ViewBag.ParentCategories = new SelectList(
-    _dataContext.Categories.Where(c => c.ParentId == null),
-    "CategoryId",
-    "Name");
+            _dataContext.Categories.Where(c => c.ParentId == null),"CategoryId","Name");
             return View(category);
 
         }

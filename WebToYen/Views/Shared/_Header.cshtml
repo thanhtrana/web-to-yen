@@ -128,94 +128,26 @@
                                 <i class="bi bi-person"></i>
                             </a>
                         </div>
+                        @if(User.Identity?.IsAuthenticated ?? false) // neu dang nhap thanh cong
+                        {
+                            <span><a asp-action="Logout" asp-controller="Account">Xin chào @User.Identity.Name</a></span>
+                        }
+                        else
+                        {
+                            
                         <div class="header-account-text d-none d-lg-block d-xl-block">
                             <div class="header-account-a">
-                                <span><a href="./login.html">Đăng nhập</a></span>
+                                <span><a asp-controller="Account" asp-action="Login">Đăng nhập</a></span>
                                 <span><a href="#">/</a></span>
-                                <span><a href="./register.html">Đăng ký</a></span>
+                                <span><a asp-controller="Account" asp-action="Register">Đăng ký</a></span>
                             </div>
                             <div class="header-account-span">
                                 <span> Tài khoản </span>
                             </div>
                         </div>
+                        }
                     </div>
-                    @* <div class="header-shop">
-                        <a asp-action="Index" asp-controller="Cart" class="d-flex">
-
-                            <div class="header-shop-icon">
-                                <i class="bi bi-cart3"></i>
-                            </div>
-                            <div class="header-shop-text d-none d-lg-block d-xl-block">
-                                <span>Giỏ hàng</span>
-                                <span class="header-shop-text-span">của bạn</span>
-                            </div>
-                                <span class="header-shop-order">
-                                <span class="header-shop-order-number"> 0 </span>
-                            </span>
-                        </a>
-                        <div class="header-action-dropdown">
-                            <div class="header-action-content">
-                                <div class="header-action-site">
-                                    <div class="hd-action-cart-view">
-                                        <div class="hd-action-view-scroll">
-                                            <table id="cart-view">
-                                                <tbody>
-                                                    <tr class="item">
-                                                        <td class="img">
-                                                            <a href="">
-                                                                <img src="/image/set-qua-cao-cap.webp" alt="">
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <p class="cart-pro-title">
-                                                                <a href="" class="cart-pro-title-view">
-                                                                    Yến Chưng Nguyên Vị-Set 18 Yến Chưng Sẵn Cao PhẩmPhẩm
-                                                                </a>
-                                                                <span class="variant">
-                                                                    Truyền Thống Nguyên Vị
-                                                                </span>
-                                                            </p>
-                                                            <div class="cart-pro-quantity">
-                                                                <div class="cart-pro-qtity-view">
-                                                                    <span class="qty-value">1</span>
-                                                                </div>
-                                                                <div class="pro-price-view">
-                                                                    1,909,000đ
-                                                                </div>
-                                                            </div>
-                                                            <div class="remove-link">
-                                                                <a href=""><i class="bi bi-x"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="line"></div>
-
-                                        <div class="cart-view-total">
-                                            <table class="table-total">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-left">TỔNG TIỀN:</td>
-                                                        <td class="text-right">1,909,000đ</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a class="linktocart " href="/cart.html">Xem giỏ hàng</a>
-                                                        </td>
-                                                        <td>
-                                                            <a class="linktocheckout " href="">Thanh toán</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> *@
+                    
                     @await Component.InvokeAsync("MiniCart")
 
                 </div>
@@ -239,86 +171,7 @@
                             <div class="header-btn-navbar">
                                 <ul class="header-btn-navbar-menu">
                                     <vc:categories></vc:categories>
-                          @*           <li>
-                                        <a href="">
-                                            <span class="icon">
-                                                <img src="/image/logo-yen-chung-san.webp"
-                                                     alt=""
-                                                     class="ls-is-cached" />
-                                            </span>
-                                            <span>Yến Chưng Sẵn</span>
-                                            <i class="ti-angle-right"></i>
-                                        </a>
 
-                                        <ul class="header-btn-bg-img header-btn-bg-hover"
-                                            style="
-                            --bg-sidebar: url('/image/bg-yen-chung-san.png');
-                          ">
-                                            <li><a href="">Yến Chưng Sẵn Cao Phẩm</a></li>
-                                            <li><a href="">Yến Chưng Sẵn Thượng Phẩm</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="icon">
-                                                <img src="/image/logo-cici.webp"
-                                                     alt=""
-                                                     class="ls-is-cached" />
-                                            </span>
-                                            <span>CiCi Skin Aura</span>
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                        <ul class="header-btn-bg-img header-btn-bg-hover"
-                                            style="--bg-sidebar: url('./image/bg-cici.png')">
-                                            <li><a href="">Una Collagen Palcenta Nest</a></li>
-                                            <li><a href="">Una Collagen</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="icon">
-                                                <img src="/image/logo-set-qua.webp"
-                                                     alt=""
-                                                     class="ls-is-cached" />
-                                            </span>
-                                            <span>Set Quà Biếu Cao Cấp</span>
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                        <ul class="header-btn-bg-img header-btn-bg-hover"
-                                            style="--bg-sidebar: url('/image/bg-set-qua.png')">
-                                            <li><a href="">Set Ngọc Yến Kim Miêu 9 Món</a></li>
-                                            <li><a href="">Set Ngọc Yến Kim Miêu 10 Món</a></li>
-                                            <li><a href="">Set Ngọc Yến Kim Miêu 11 Món</a></li>
-                                            <li><a href="">Vạn Thế Vương Giả 1</a></li>
-                                            <li><a href="">Vạn Thế Vương Giả 2</a></li>
-                                            <li><a href="">Set Quà Rượu Fer Valley</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="icon">
-                                                <img src="/image/logo-qua-tet.webp"
-                                                     alt=""
-                                                     class="ls-is-cached" />
-                                            </span>
-                                            <span>Set Quà Tết</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="icon">
-                                                <img src="/image/logo-fer.webp"
-                                                     alt=""
-                                                     class="ls-is-cached" />
-                                            </span>
-                                            <span>Fer Valley</span>
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                        <ul class="header-btn-bg-img header-btn-bg-hover"
-                                            style="--bg-sidebar: url('/image/bg-fer.png')">
-                                            <li><a href="">RƯỢU HOA QUẢ</a></li>
-                                        </ul>
-                                    </li> *@
                                 </ul>
                             </div>
                         </div>
@@ -352,4 +205,26 @@
         </div>
     </div>
 </section>
+
+<script>
+    // click vao thi hien, click ra ngoai thi tat, (gio hang)
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const headerShop = document.querySelector('.header-shop');
+      const headerActionDropdown = document.querySelector('.header-action-dropdown');
+
+      // Toggle dropdown khi click vào header-shop
+      headerShop.addEventListener('click', function(event) {
+        event.stopPropagation();  // Ngăn chặn sự kiện click lan tỏa
+        headerShop.classList.toggle('active');
+      });
+
+      // Đóng dropdown khi click ra ngoài
+      document.addEventListener('click', function(event) {
+        if (!headerShop.contains(event.target)) {
+          headerShop.classList.remove('active');
+        }
+      });
+    });
+    </script>
 <!-- end header section -->

@@ -8,9 +8,10 @@ namespace WebToYen.Models
         [Key]
         public int OrderId { get; set; }
         public string UserId { get; set; }
+        public string OrderCode { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
-
-        public string Status { get; set; }
+        public string UserEmail { get; set; }
+        public int Status { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }

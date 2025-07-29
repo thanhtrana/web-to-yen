@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Dang Nhap";
+
+}
+@model LoginViewModel
+<!-- start login section -->
+
+<div class="layout-account">
+    <div class="container">
+        <div class="row">
+            <div class="bg-white">
+                <div class="row">
+                    <div class="col-12 col-md-12 media-pd">
+                        <div class="head-login">
+                            <div id="custome" class="userbox">
+                                <div class="head-login-title">
+                                    <h1 class="text-center account-title">Đăng nhập</h1>
+                                </div>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <form asp-action="Login" asp-controller="Account">
+                                    <div class="clearfix content-login text-center">
+                                        <label for="customer_email" class="icon-field">
+                                            <i class="bi bi-envelope"></i>
+                                        </label>
+                                               <span asp-validation-for="Email"></span>
+                                        <input asp-for="Email"
+                                               placeholder="Email"
+                                               class="text content-login-text" />
+                                    </div>
+
+                                    <div class="clearfix content-login text-center">
+                                        <label for="customer_password" class="icon-field">
+                                            <i class="bi bi-lock"></i>
+                                        </label>
+                                        <span asp-validation-for="Password"></span>
+                                        <input asp-for="Password"
+                                               placeholder="Mật khẩu"
+                                               class="text content-login-text" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="clearfix btn-login">
+                                            <div class="action_bottom button dark">
+                                                <input class="btn btn-primary btn-signin"
+                                                       type="submit"
+                                                       value="Đăng nhập" />
+                                            </div>
+                                            <div class="req_pass action_bottom">
+                                                <a href="#">Quên mật khẩu?</a><br />
+                                                hoặc <a asp-controller="Account" asp-action="Register" title="Đăng ký">Đăng ký</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- end login section -->
+<section class="space"></section>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+}

@@ -26,56 +26,7 @@
                                             <div id="overlay" class="overlay"></div>
 
                                             <!-- Menu bên trái -->
-                                            <div id="sideMenu" class="side-menu">
-                                                <div class="header-top-side">
-                                                    <ul class="header-top-navbar-side">
-                                                        <div class="header-top-close">
-                                                            <span class="close">
-                                                                <i class="bi bi-x"></i>
-                                                            </span>
-                                                        </div>
-                                                        <li><a href="./index.html">Trang chủ</a></li>
-                                                        <li>
-                                                            <a href="#">
-                                                                Sản phẩm
-                                                                <i class="hd-top-mb-right bi bi-chevron-right"></i>
-                                                            </a>
-                                                            <ul class="hd-top-mb-ul">
-                                                                <li>
-                                                                    <a href="./to-yen.html"> Tổ yến </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="/collection/toyentho.html">
-                                                                        Yến chưng tươi
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href=""> Yến chưng sẵn </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href=""> CiCi Skin Aura </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="/collection/yencaocap.html">
-                                                                        Set quà biếu cao cấp
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href=""> Fer Valley </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href=""> Sét quà tết </a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="#">Khuyến mãi</a></li>
-                                                        <li><a href="#">Tin tức</a></li>
-                                                        <li><a href="#">Liên hệ</a></li>
-                                                        <li><a href="#">Về chúng tôi</a></li>
-                                                        <li><a href="#">Chính sách đại lý</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -83,64 +34,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="header-img-logo col-lg-1 col-md-6">
-                    <a href="#">
-                        <img src="/image/logo.webp" alt="logo" />
-                    </a>
-                </div>
 
-                <div class="header-search col-lg-7 d-none d-lg-block d-xl-block">
-                    <div class="header-search-from">
-                        <div class="header-search-narbar">
-                            <div class="header-input">
-                                <div class="search-1">
-                                    <p id="searchError" class="search-error-text">
-                                        ! Vui lòng điền vào trường này
-                                    </p>
-                                </div>
-                                <input id="searchInput"
-                                       class="header-input-search"
-                                       placeholder="Trao gửi tri ân - Nhận niềm vui mới"
-                                       type="text" />
-                                <button id="searchBtn"
-                                        class="header-input-button"
-                                        type="submit"
-                                        aria-label="Tìm Kiếm">
-                                    <i class="ti-search"></i>
-                                    Tìm kiếm
-                                </button>
-                            </div>
-                        </div>
-                        <div class="header-search-text">
-                            <span><a href="#">Thượng Vy Yến biển</a></span>
-                            <span><a href="/to-yen.html">Tổ yến</a></span>
-                            <span><a href="#">Yến chưng tươi</a></span>
-                            <span><a href="#">Yến chưng sẵn</a></span>
-                            <span><a href="#"> Sữa Hạt Tổ Yến</a></span>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="header-account-shop col-lg-4 col-md-2">
-                    <div class="header-account">
-                        <div class="header-account-icon">
-                            <a href="./login.html">
-                                <i class="bi bi-person"></i>
-                            </a>
-                        </div>
-                        <div class="header-account-text d-none d-lg-block d-xl-block">
-                            <div class="header-account-a">
-                                <span><a href="./login.html">Đăng nhập</a></span>
-                                <span><a href="#">/</a></span>
-                                <span><a href="./register.html">Đăng ký</a></span>
-                            </div>
-                            <div class="header-account-span">
-                                <span> Tài khoản </span>
-                            </div>
-                        </div>
-                    </div>
                     
-                    @await Component.InvokeAsync("MiniCart")
+                    
+                    
 
                 </div>
             </div>
@@ -160,10 +60,12 @@
                                         <nav class="navbar-main">
                                             <ul class="navbar-ul">
                                                 <li class="">
-                                                    <a asp-action="Index" asp-controller="Category">Category</a>
+                                                    <a asp-action="Index" asp-controller="Category">Quản Lý Danh Mục</a>
                                                 </li>
                                                 
-                                                <li><a asp-action="Index" asp-controller="Product">Product</a></li>
+                                                <li><a asp-action="Index" asp-controller="Product">Quản Lý Sản Phẩm</a></li>
+                                                <li><a asp-action="Index" asp-controller="Order">Quản Lý Đơn Hàng</a></li>
+                                                <li><a asp-action="Index" asp-controller="User">Quản Lý Tài Khoản</a></li>
 
                                             </ul>
                                         </nav>

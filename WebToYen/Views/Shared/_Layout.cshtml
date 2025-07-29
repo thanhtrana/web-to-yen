@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="~/css/to-yen.css" />
     <link rel="stylesheet" href="~/css/product.css" />
     <link href="~/css/cart.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/register.css" />
 </head>
 <body>
     <!-- ✅ Gắn _Header.cshtml tại đây -->
@@ -28,12 +30,20 @@
 
     <!-- Gắn footer nếu có -->
     @Html.Partial("_Footer")
-    
+
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["success"]
+        </div>
+    }
 
 
     @await Component.InvokeAsync("AddToCart")
 
 
+    @RenderSection("Scripts", required: false)
 
     <script src="~/js/search.js"></script>
     <script src="~/bootstrap-5.3.6-dist/js/bootstrap.js"></script>
@@ -44,6 +54,7 @@
     <script src="~/js/order.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
+       
 
     </script>
 

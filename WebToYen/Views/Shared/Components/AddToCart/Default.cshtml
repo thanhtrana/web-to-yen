@@ -30,7 +30,9 @@
                                     <tr>
                                         <td class="product-img">
                                             <a href="#">
-                                                <img src="~/image/@item.ProductImage" alt="@item.ProductName">
+                                                <img src="@Url.Content("~/media/products/" + item.ProductImage)" alt="@item.ProductName">
+
+
                                             </a>
                                         </td>
                                         <td class="product-title">
@@ -64,7 +66,9 @@
                                         <div class="col-5 col-md-4">
                                             <div class="cart-item-img">
                                                 <a href="#">
-                                                    <img src="~/image/@item.ProductImage" alt="@item.ProductName">
+                                                    <img src="@Url.Content("~/media/products/" + item.ProductImage)" alt="@item.ProductName">
+
+
                                                 </a>
                                             </div>
                                         </div>

@@ -465,8 +465,8 @@ a {
     display: block;
 }
 
-.img {
-    width: 65px;
+#cart-view tr.item img {
+    width: 76px;
     padding: 0;
 }
 
@@ -492,7 +492,6 @@ a {
 
 .cart-pro-title {
     padding-right: 30px;
-    color: #fff;
 }
 
 .cart-pro-title-view {

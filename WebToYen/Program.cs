@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WebToYen.Controllers;
+using WebToYen.Models;
 using WebToYen.Repository;
 using WebToYen.Services;
 
@@ -22,7 +25,35 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true; // Cookie cần thiết cho ứng dụng
 });
 
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true; // yeu cau so
+    options.Password.RequireLowercase = true; // chu
+    options.Password.RequireNonAlphanumeric = false; // Ky tu dac biet
+    options.Password.RequireUppercase = false; // chu hoa
+    options.Password.RequiredLength = 4;
+
+    //// Lockout settings.
+    //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    //options.Lockout.MaxFailedAccessAttempts = 5; // qua 5 lan khoa account
+    //options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    // cho phep cac ky tu:
+    //options.User.AllowedUserNameCharacters =
+    //"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true; // 1 email dung 1 tai khoan
+});
+
 var app = builder.Build();
+
+app.UseStatusCodePagesWithRedirects("/Home/Error?statuscode={0}");
 
 app.UseSession();
 
@@ -37,6 +68,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseStaticFiles();
@@ -59,6 +91,21 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    string[] roleNames = { "Admin", "User", "Manager" };
+
+    foreach (var roleName in roleNames)
+    {
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+}
 
 
 

@@ -76,8 +76,10 @@
                                                                                 <td class="image">
                                                                                     <div class="product_image">
                                                                                         <a href="#">
-                                                                                            <img src="~/image/@item.ProductImage"
-                                                                                            alt="" />
+                                                                                            <img src="@Url.Content("~/media/products/" + item.ProductImage)" alt="@item.ProductName">
+
+
+                                                                                            
                                                                                         </a>
                                                                                     </div>
                                                                                 </td>
@@ -90,7 +92,7 @@
                                                                                 </td>
                                                                                 <td class="item">
                                                                                     <p>
-                                                                                        <span class="price">@item.UnitPrice đ</span>
+                                                                                        <span class="price">@item.UnitPrice.ToString("N0") đ</span>
                                                                                     </p>
                                                                                 </td>
                                                                                 <td class="qty">
@@ -183,7 +185,8 @@
                                                                         <p>
                                                                             Tổng tiền:
                                                                             <span class="order-price">
-                                                                                @Model.GrandlTotal.ToString()đ
+                                                                                @Model.GrandlTotal.ToString("N0") đ
+
                                                                             </span>
                                                                         </p>
                                                                     </div>
@@ -197,7 +200,11 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="order-action">
-                                                                        <a href="" class="btn-checkout btn">THANH TOÁN</a>
+                                                                        @if (User.Identity?.IsAuthenticated ?? false)
+                                                                        {
+
+                                                                            <a asp-action="Checkout" asp-controller="Checkout" class="btn-checkout btn">THANH TOÁN</a>
+                                                                        }
                                                                         <p class="link-continue">
                                                                             <a asp-action="Index" asp-controller="Home">
                                                                                 <i class="bi bi-reply-fill"></i>
